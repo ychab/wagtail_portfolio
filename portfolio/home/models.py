@@ -15,20 +15,36 @@ from wagtail.snippets.models import register_snippet
 
 
 class HomePage(Page):
+    header = models.ForeignKey(
+        'home.header',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+    about = models.ForeignKey(
+        'home.about',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
+
     content_panels = Page.content_panels + [
+        SnippetChooserPanel('header'),
         InlinePanel('project_placements', label="Projects"),
+        SnippetChooserPanel('about'),
     ]
 
 
 @register_snippet
-class Project(models.Model):
+class Header(models.Model):
     title = models.CharField(
         verbose_name=_('title'),
         max_length=255,
         help_text=_("The page title as you'd like it to be seen by the public")
     )
     text = RichTextField(blank=True)
-    # text = models.TextField(blank=True)
     image = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
@@ -39,9 +55,51 @@ class Project(models.Model):
 
     panels = [
         FieldPanel('title'),
-        # FieldPanel('text'),
         RichTextFieldPanel('text'),
         ImageChooserPanel('image'),
+    ]
+
+    def __str__(self):
+        return self.title
+
+
+@register_snippet
+class Project(models.Model):
+    title = models.CharField(
+        verbose_name=_('title'),
+        max_length=255,
+        help_text=_("The page title as you'd like it to be seen by the public")
+    )
+    text = RichTextField(blank=True)
+    image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
+
+    panels = [
+        FieldPanel('title'),
+        RichTextFieldPanel('text'),
+        ImageChooserPanel('image'),
+    ]
+
+    def __str__(self):
+        return self.title
+
+@register_snippet
+class About(models.Model):
+    title = models.CharField(
+        verbose_name=_('title'),
+        max_length=255,
+        help_text=_("The page title as you'd like it to be seen by the public")
+    )
+    text = RichTextField(blank=True)
+
+    panels = [
+        FieldPanel('title'),
+        RichTextFieldPanel('text'),
     ]
 
     def __str__(self):
