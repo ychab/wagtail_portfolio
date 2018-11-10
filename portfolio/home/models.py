@@ -1,76 +1,75 @@
-from django.db import models, transaction
-from django.template import loader
-from django.utils import timezone
+from django.conf import settings
+from django.db import models
 from django.utils.translation import gettext_lazy as _
 from modelcluster.fields import ParentalKey
 
 from wagtail.admin.edit_handlers import (
-    FieldPanel, InlinePanel, RichTextFieldPanel,
+    FieldPanel, InlinePanel, MultiFieldPanel, RichTextFieldPanel,
 )
 from wagtail.core.fields import RichTextField
-from wagtail.core.models import Page, PAGE_TEMPLATE_VAR, Orderable
+from wagtail.core.models import Page, Orderable
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
 
 
 class HomePage(Page):
-    header = models.ForeignKey(
-        'home.header',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+'
-    )
-    about = models.ForeignKey(
-        'home.about',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+'
-    )
-
-    content_panels = Page.content_panels + [
-        SnippetChooserPanel('header'),
-        InlinePanel('project_placements', label="Projects"),
-        SnippetChooserPanel('about'),
-    ]
-
-
-@register_snippet
-class Header(models.Model):
-    title = models.CharField(
-        verbose_name=_('title'),
+    navbar_title = models.CharField(
+        verbose_name=_('Navbar title'),
         max_length=255,
-        help_text=_("The page title as you'd like it to be seen by the public")
+        blank=True,
+        default='',
     )
-    text = RichTextField(blank=True)
-    image = models.ForeignKey(
+
+    header_title = models.CharField(
+        verbose_name=_('Title'),
+        max_length=255,
+        blank=True,
+        default='',
+    )
+    header_text = models.TextField(verbose_name=_('Text'), blank=True)
+    header_image = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
+        verbose_name=_('Image'),
         related_name='+',
     )
 
-    panels = [
-        FieldPanel('title'),
-        RichTextFieldPanel('text'),
-        ImageChooserPanel('image'),
-    ]
+    about_title = models.CharField(
+        verbose_name=_('title'),
+        max_length=255,
+        blank=True,
+        default='',
+    )
+    about_text = RichTextField(blank=True)
 
-    def __str__(self):
-        return self.title
+    content_panels = Page.content_panels + [
+        FieldPanel('navbar_title'),
+        MultiFieldPanel(
+            [
+                FieldPanel('header_title'),
+                FieldPanel('header_text'),
+                ImageChooserPanel('header_image'),
+            ],
+            heading=_('Header'),
+        ),
+        InlinePanel('project_placements', label=_("Projects")),
+        MultiFieldPanel(
+            [
+                FieldPanel('about_title'),
+                RichTextFieldPanel('about_text'),
+            ],
+            heading=_('About'),
+        ),
+    ]
 
 
 @register_snippet
 class Project(models.Model):
-    title = models.CharField(
-        verbose_name=_('title'),
-        max_length=255,
-        help_text=_("The page title as you'd like it to be seen by the public")
-    )
-    text = RichTextField(blank=True)
+    title = models.CharField(verbose_name=_('title'), max_length=255)
+    text = models.TextField(blank=True)
     image = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
@@ -81,25 +80,8 @@ class Project(models.Model):
 
     panels = [
         FieldPanel('title'),
-        RichTextFieldPanel('text'),
+        FieldPanel('text'),
         ImageChooserPanel('image'),
-    ]
-
-    def __str__(self):
-        return self.title
-
-@register_snippet
-class About(models.Model):
-    title = models.CharField(
-        verbose_name=_('title'),
-        max_length=255,
-        help_text=_("The page title as you'd like it to be seen by the public")
-    )
-    text = RichTextField(blank=True)
-
-    panels = [
-        FieldPanel('title'),
-        RichTextFieldPanel('text'),
     ]
 
     def __str__(self):

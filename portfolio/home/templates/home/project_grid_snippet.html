@@ -1,3 +1,5 @@
+{% load wagtailimages_tags %}
+
 <div class="col-md-6 col-lg-4">
     <a class="portfolio-item d-block mx-auto" href="#portfolio-modal-{{ index }}">
         <div class="portfolio-item-caption d-flex position-absolute h-100 w-100">
@@ -5,6 +7,6 @@
                 <i class="fas fa-search-plus fa-3x"></i>
             </div>
         </div>
-        {% image self.image 'fill-350x253' class="img-fluid" %}
+        {% image project.image fill-350x253 class="img-fluid" %}
     </a>
 </div>

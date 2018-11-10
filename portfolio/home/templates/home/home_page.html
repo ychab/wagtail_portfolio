@@ -1,194 +1,31 @@
-{% extends "page.html" %}
+{% extends "base.html" %}
 {% load i18n static %}
 
 {% block content %}
+
     <!-- Header -->
-    {% include 'header_snippet.html' with self=self.header %}
+    {% include 'home/header.html' %}
 
     <!-- Portfolio Grid Section -->
     <section class="portfolio" id="portfolio">
         <div class="container">
-            <h2 class="text-center text-uppercase text-secondary mb-0">Portfolio</h2>
+            <h2 class="text-center text-uppercase text-secondary mb-0">{% trans 'My projects' %}</h2>
             <hr class="star-dark mb-5">
             <div class="row">
-            {% for project in self.projects %}
-                {% include 'project_snippet.html' with self=self.header index=loop.index %}
-            {% endfor %}
+                {% for placement in self.project_placements.all %}
+                    {% include 'home/project_grid_snippet.html' with project=placement.project index=loop.index %}
+                {% endfor %}
             </div>
         </div>
     </section>
 
     <!-- Portfolio Modals -->
-
-    <!-- Portfolio Modal 1 -->
-    <div class="portfolio-modal mfp-hide" id="portfolio-modal-1">
-        <div class="portfolio-modal-dialog bg-white">
-            <a class="close-button d-none d-md-block portfolio-modal-dismiss" href="#">
-                <i class="fa fa-3x fa-times"></i>
-            </a>
-            <div class="container text-center">
-                <div class="row">
-                    <div class="col-lg-8 mx-auto">
-                        <h2 class="text-secondary text-uppercase mb-0">Project Name</h2>
-                        <hr class="star-dark mb-5">
-                        <img class="img-fluid mb-5" src="{% static 'img/portfolio/cabin.png' %}" alt="">
-                        <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque
-                            assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit
-                            asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
-                        <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
-                            <i class="fa fa-close"></i>
-                            Close Project</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Portfolio Modal 2 -->
-    <div class="portfolio-modal mfp-hide" id="portfolio-modal-2">
-        <div class="portfolio-modal-dialog bg-white">
-            <a class="close-button d-none d-md-block portfolio-modal-dismiss" href="#">
-                <i class="fa fa-3x fa-times"></i>
-            </a>
-            <div class="container text-center">
-                <div class="row">
-                    <div class="col-lg-8 mx-auto">
-                        <h2 class="text-secondary text-uppercase mb-0">Project Name</h2>
-                        <hr class="star-dark mb-5">
-                        <img class="img-fluid mb-5" src="{% static 'img/portfolio/cake.png' %}" alt="">
-                        <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque
-                            assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit
-                            asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
-                        <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
-                            <i class="fa fa-close"></i>
-                            Close Project</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Portfolio Modal 3 -->
-    <div class="portfolio-modal mfp-hide" id="portfolio-modal-3">
-        <div class="portfolio-modal-dialog bg-white">
-            <a class="close-button d-none d-md-block portfolio-modal-dismiss" href="#">
-                <i class="fa fa-3x fa-times"></i>
-            </a>
-            <div class="container text-center">
-                <div class="row">
-                    <div class="col-lg-8 mx-auto">
-                        <h2 class="text-secondary text-uppercase mb-0">Project Name</h2>
-                        <hr class="star-dark mb-5">
-                        <img class="img-fluid mb-5" src="{% static 'img/portfolio/circus.png' %}" alt="">
-                        <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque
-                            assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit
-                            asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
-                        <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
-                            <i class="fa fa-close"></i>
-                            Close Project</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Portfolio Modal 4 -->
-    <div class="portfolio-modal mfp-hide" id="portfolio-modal-4">
-        <div class="portfolio-modal-dialog bg-white">
-            <a class="close-button d-none d-md-block portfolio-modal-dismiss" href="#">
-                <i class="fa fa-3x fa-times"></i>
-            </a>
-            <div class="container text-center">
-                <div class="row">
-                    <div class="col-lg-8 mx-auto">
-                        <h2 class="text-secondary text-uppercase mb-0">Project Name</h2>
-                        <hr class="star-dark mb-5">
-                        <img class="img-fluid mb-5" src="{% static 'img/portfolio/game.png' %}" alt="">
-                        <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque
-                            assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit
-                            asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
-                        <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
-                            <i class="fa fa-close"></i>
-                            Close Project</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Portfolio Modal 5 -->
-    <div class="portfolio-modal mfp-hide" id="portfolio-modal-5">
-        <div class="portfolio-modal-dialog bg-white">
-            <a class="close-button d-none d-md-block portfolio-modal-dismiss" href="#">
-                <i class="fa fa-3x fa-times"></i>
-            </a>
-            <div class="container text-center">
-                <div class="row">
-                    <div class="col-lg-8 mx-auto">
-                        <h2 class="text-secondary text-uppercase mb-0">Project Name</h2>
-                        <hr class="star-dark mb-5">
-                        <img class="img-fluid mb-5" src="{% static 'img/portfolio/safe.png' %}" alt="">
-                        <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque
-                            assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit
-                            asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
-                        <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
-                            <i class="fa fa-close"></i>
-                            Close Project</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Portfolio Modal 6 -->
-    <div class="portfolio-modal mfp-hide" id="portfolio-modal-6">
-        <div class="portfolio-modal-dialog bg-white">
-            <a class="close-button d-none d-md-block portfolio-modal-dismiss" href="#">
-                <i class="fa fa-3x fa-times"></i>
-            </a>
-            <div class="container text-center">
-                <div class="row">
-                    <div class="col-lg-8 mx-auto">
-                        <h2 class="text-secondary text-uppercase mb-0">Project Name</h2>
-                        <hr class="star-dark mb-5">
-                        <img class="img-fluid mb-5" src="{% static 'img/portfolio/submarine.png' %}" alt="">
-                        <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia neque
-                            assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit
-                            asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
-                        <a class="btn btn-primary btn-lg rounded-pill portfolio-modal-dismiss" href="#">
-                            <i class="fa fa-close"></i>
-                            Close Project</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    {% for placement in self.project_placements.all %}
+        {% include 'home/project_modal_snippet.html' with project=placement.project index=loop.index %}
+    {% endfor %}
 
     <!-- About Section -->
-    <section class="bg-primary text-white mb-0" id="about">
-        <div class="container">
-            <h2 class="text-center text-uppercase text-white">About</h2>
-            <hr class="star-light mb-5">
-            <div class="row">
-                <div class="col-lg-4 ml-auto">
-                    <p class="lead">Freelancer is a free bootstrap theme created by Start Bootstrap. The download
-                        includes the complete source files including HTML, CSS, and JavaScript as well as optional LESS
-                        stylesheets for easy customization.</p>
-                </div>
-                <div class="col-lg-4 mr-auto">
-                    <p class="lead">Whether you're a student looking to showcase your work, a professional looking to
-                        attract clients, or a graphic artist looking to share your projects, this template is the
-                        perfect starting point!</p>
-                </div>
-            </div>
-            <div class="text-center mt-4">
-                <a class="btn btn-xl btn-outline-light" href="#">
-                    <i class="fas fa-download mr-2"></i>
-                    Download Now!
-                </a>
-            </div>
-        </div>
-    </section>
+    {% include 'home/about.html' %}
 
     <!-- Contact Section -->
     <section id="contact">
