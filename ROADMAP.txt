@@ -1,0 +1,41 @@
+services:
+- cours à domicile / cours à l'extérieur (en parc)
+- évaluation
+- ballade éducative
+- ventes de produits
+
+à propos avec chiens
+indexation google contact nom + tél
+matomo
+meta keyword
+favico
+logo
+afficher titre service avec images
+
+
+slogan : un chien éduqué, une liberté retrouvée
+
+footer :
+
+	block: contact =>
+
+	tél (champs type tel)
+	email
+
+	block réseau social
+
+	block horaires
+
+facebook
+instagram
+twitter
+google+
+
+
+wagtail css a inhjecter pour rich text float left ??
+
+zone témoignages ?
+ils 'mont fait confiance
+
+=> services
+=> les projets = internveiton/prestation + témoignange

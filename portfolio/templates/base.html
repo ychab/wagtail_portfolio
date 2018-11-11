@@ -7,8 +7,9 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="keywords" content="{{ settings.core.PortfolioSettings.seo_keywords|default:"" }}">
+    <meta name="description" content="{{ settings.core.PortfolioSettings.seo_description|default:"" }}">
+    <meta name="author" content="Yannick Chabbert">
 
     <title>
         {% block title %}
@@ -20,6 +21,8 @@
             {% endwith %}
         {% endblock %}
     </title>
+
+    <link href="{% static 'img/favicon.ico' %}" rel="shortcut icon" type="image/vnd.microsoft.icon">
 
     <!-- Bootstrap core CSS -->
     <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
@@ -45,6 +48,7 @@
     {% endblock %}
 
     {% wagtailuserbar %}
+
     {% block content %}{% endblock %}
 
     <!-- Footer -->
@@ -54,7 +58,7 @@
 
     <div class="copyright py-4 text-center text-white">
         <div class="container">
-            <small>Copyright &copy; Your Website 2018</small>
+            <small>Copyright &copy; {{ self.get_site.site_name }} 2018</small>
         </div>
     </div>
 
@@ -72,6 +76,8 @@
     <!-- Plugin JavaScript -->
     <script src="{% static 'vendor/jquery-easing/jquery.easing.min.js' %}"></script>
     <script src="{% static 'vendor/magnific-popup/jquery.magnific-popup.min.js' %}"></script>
+
+    <script type="text/javascript" src="{% url 'javascript-catalog' %}"></script>
 
     <!-- Contact Form JavaScript -->
     <script src="{% static 'js/jqBootstrapValidation.js' %}"></script>

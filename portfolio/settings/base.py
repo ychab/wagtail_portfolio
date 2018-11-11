@@ -29,9 +29,11 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'portfolio.home',
+    'portfolio.core',
 
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
+    'wagtail.contrib.settings',
     'wagtail.embeds',
     'wagtail.sites',
     'wagtail.users',
@@ -81,6 +83,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                'wagtail.contrib.settings.context_processors.settings',
             ],
         },
     },
@@ -153,3 +157,18 @@ LOGGING['loggers']['portfolio'] = {
     'handlers': ['console', 'mail_admins'],
     'level': 'INFO',
 }
+
+# Wagtail settings
+
+WAGTAIL_SITE_NAME = "portfolio"
+
+# Base URL to use when referring to full URLs within the Wagtail admin backend -
+# e.g. in notification emails. Don't include '/admin' or a trailing slash
+BASE_URL = 'http://testserver'
+
+# Portfolio settings
+
+CONTACT_FORM_MAX_ATTEMPT = 5
+CONTACT_FORM_MIN_DELAY_SECONDS = 60 * 5
+CONTACT_FORM_IP_ADDRESS_WHITELIST = []
+CONTACT_FORM_IP_ADDRESS_BLACKLIST = []

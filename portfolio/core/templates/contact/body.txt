@@ -1,0 +1,8 @@
+{% load i18n %}{% autoescape off %}
+{% blocktrans %}You have received a new email contact form with the following data:
+- name: {{ name }}
+- email: {{ email }}
+- phone: {{ phone }}
+- message: {{ message }}
+{% endblocktrans %}
+{% endautoescape %}

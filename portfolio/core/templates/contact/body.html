@@ -1,0 +1,21 @@
+{% load i18n %}{% autoescape off %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <p>
+        {% blocktrans %}
+        You have received a new email contact form with the following data:
+        <ul>
+        <li>name: {{ name }}</li>
+        <li>email: {{ email }}</li>
+        <li>phone: {{ phone }}</li>
+        <li>message: {{ message }}</li>
+        </ul>
+        {% endblocktrans %}
+    </p>
+</body>
+</html>
+{% endautoescape %}

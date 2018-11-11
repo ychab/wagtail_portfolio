@@ -15,11 +15,14 @@ LANGUAGE_CODE = 'fr-fr'
 
 # Wagtail settings
 
-WAGTAIL_SITE_NAME = "portfolio"
-
-# Base URL to use when referring to full URLs within the Wagtail admin backend -
-# e.g. in notification emails. Don't include '/admin' or a trailing slash
+WAGTAIL_SITE_NAME = 'portfolio'
 BASE_URL = 'http://testserver'
+
+# Portfolio settings
+
+CONTACT_FORM_EMAILS = []
+CONTACT_FORM_IP_ADDRESS_WHITELIST = []
+CONTACT_FORM_IP_ADDRESS_BLACKLIST = []
 
 ############
 # Production
@@ -31,7 +34,7 @@ BASE_URL = 'http://testserver'
 # STATIC_ROOT = ''
 # MEDIA_ROOT = ''
 
-# DEFAULT_FROM_EMAIL = 'no-reply@opengst.fr'
+# DEFAULT_FROM_EMAIL = ''
 # EMAIL_HOST = ''
 # EMAIL_PORT = ''
 # EMAIL_HOST_USER = ''
