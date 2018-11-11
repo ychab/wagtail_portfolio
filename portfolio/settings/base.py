@@ -74,6 +74,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
+            # os.path.join(PROJECT_DIR, 'templates', 'agency'),
             os.path.join(PROJECT_DIR, 'templates', 'freelancer'),
         ],
         'APP_DIRS': True,
