@@ -5,7 +5,7 @@ var cleanCSS = require('gulp-clean-css');
 var rename = require("gulp-rename");
 var uglify = require('gulp-uglify');
 var autoprefixer = require('gulp-autoprefixer');
-var pkg = require('../../package.json');
+var pkg = require('../../../package.json');
 var browserSync = require('browser-sync').create();
 
 // Set the banner content

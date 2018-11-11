@@ -1,0 +1,34 @@
+-   model: home.homepage
+    pk: 3
+    fields: {page_ptr: 3, header_title: "\xC9ducanine Nord Loire", header_text: "Nelly\
+            \ Chabbert, \xE9ducateur canin du r\xE9seau \xC9ducanine", header_image: 1,
+        about_title: "\xC0 propos de nous", about_text: "<p>Avec mes chiens: nous\
+            \ formons une sacr\xE9e \xE9quipe pour vous accompagner dans l&#x27;\xE9\
+            ducation de votre chien.</p><ul><li>Diablo</li><li>Sparrow</li></ul>"}
+-   model: home.service
+    pk: 1
+    fields: {title: "Cours d'\xE9ducation canine", slug: cours, text: "Je vous propose\
+            \ des cours \xE0 domicile et en ext\xE9rieur (parcs)", image: 1}
+-   model: home.service
+    pk: 2
+    fields: {title: "\xC9valuation", slug: evaluation, text: "J'effectue une \xE9\
+            valuation de votre chien et vous propose des solutions", image: 1}
+-   model: home.service
+    pk: 3
+    fields: {title: "Ballade \xE9ducative", slug: ballade, text: "Vous n'arrivez plus\
+            \ \xE0 vous ballader avec votre chien ? Je peux vous aidder...", image: 1}
+-   model: home.service
+    pk: 4
+    fields: {title: Ventes de produits, slug: vente, text: 'Alimentation, etc', image: 1}
+-   model: home.homepageserviceplacement
+    pk: 1
+    fields: {sort_order: 0, page: 3, service: 1}
+-   model: home.homepageserviceplacement
+    pk: 2
+    fields: {sort_order: 1, page: 3, service: 2}
+-   model: home.homepageserviceplacement
+    pk: 3
+    fields: {sort_order: 2, page: 3, service: 3}
+-   model: home.homepageserviceplacement
+    pk: 4
+    fields: {sort_order: 3, page: 3, service: 4}

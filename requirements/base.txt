@@ -1,3 +1,4 @@
 psycopg2-binary==2.7.5
 wagtail==2.3
 django-ipware==2.1.0
+pyyaml==3.13
