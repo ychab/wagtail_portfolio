@@ -2,7 +2,7 @@
 
 <section id="contact">
     <div class="container">
-        <h2 class="text-center text-uppercase text-secondary mb-0">{% trans 'Contact me' %}</h2>
+        <h2 class="text-center text-uppercase text-secondary mb-0">{% trans 'Contact' %}</h2>
         <hr class="star-dark mb-5">
         <div class="row">
             <div class="col-lg-8 mx-auto">
@@ -11,27 +11,26 @@
                     {% csrf_token %}
                     <div class="control-group">
                         <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                            <label>{% trans 'Name' %}</label>
-                            <input class="form-control" id="name" type="text" placeholder="{% trans 'Name' %}" required="required"
-                                   data-validation-required-message="{% trans 'Please enter your name.' %}">
+                            <label>{% trans 'Nom' %}</label>
+                            <input class="form-control" id="name" type="text" placeholder="{% trans 'Nom' %}" required="required"
+                                   data-validation-required-message="{% trans 'Merci de saisir un nom.' %}">
                             <p class="help-block text-danger"></p>
                         </div>
                     </div>
                     <div class="control-group">
                         <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                            <label>{% trans 'Email Address' %}</label>
-                            <input class="form-control" id="email" type="email" placeholder="{% trans 'Email Address' %}"
+                            <label>{% trans 'Adresse email' %}</label>
+                            <input class="form-control" id="email" type="email" placeholder="{% trans 'Adresse email' %}"
                                    required="required"
-                                   data-validation-required-message="{% trans 'Please enter your email address.' %}">
+                                   data-validation-required-message="{% trans 'Merci de saisir une adresse email.' %}">
                             <p class="help-block text-danger"></p>
                         </div>
                     </div>
                     <div class="control-group">
                         <div class="form-group floating-label-form-group controls mb-0 pb-2">
-                            <label>{% trans 'Phone Number' %}</label>
-                            <input class="form-control" id="phone" type="tel" placeholder="{% trans 'Phone Number"' %}"
-                                   required="required"
-                                   data-validation-required-message="{% trans 'Please enter your phone number.' %}">
+                            <label>{% trans 'Numéro de téléphone' %}</label>
+                            <input class="form-control" id="phone" type="tel" placeholder="{% trans 'Numéro de téléphone' %}"
+                                   data-validation-required-message="{% trans 'Merci de saisir un numéro de téléphone.' %}">
                             <p class="help-block text-danger"></p>
                         </div>
                     </div>
@@ -40,14 +39,14 @@
                             <label>{% trans 'Message' %}</label>
                             <textarea class="form-control" id="message" rows="5" placeholder="{% trans 'Message' %}"
                                       required="required"
-                                      data-validation-required-message="{% trans 'Please enter a message.' %}"></textarea>
+                                      data-validation-required-message="{% trans 'Merci de saisir un message.' %}"></textarea>
                             <p class="help-block text-danger"></p>
                         </div>
                     </div>
                     <br>
                     <div id="success"></div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary btn-xl" id="sendMessageButton">{% trans 'Send' %}</button>
+                        <button type="submit" class="btn btn-primary btn-xl" id="sendMessageButton">{% trans 'Envoyé' %}</button>
                     </div>
                 </form>
             </div>

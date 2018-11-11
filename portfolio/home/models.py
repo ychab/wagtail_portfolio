@@ -48,7 +48,7 @@ class HomePage(Page):
                 FieldPanel('header_text'),
                 ImageChooserPanel('header_image'),
             ],
-            heading=_('Header'),
+            heading=_('Entête'),
         ),
         InlinePanel('service_placements', label=_("Services")),
         MultiFieldPanel(
@@ -56,12 +56,13 @@ class HomePage(Page):
                 FieldPanel('about_title'),
                 RichTextFieldPanel('about_text'),
             ],
-            heading=_('About'),
+            heading=_('À propos'),
         ),
     ]
 
     class Meta:
         db_table = 'portfolio_homepage'
+        verbose_name = _('Page d\'accueil')
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
@@ -71,8 +72,8 @@ class HomePage(Page):
 
 @register_snippet
 class Service(models.Model):
-    title = models.CharField(verbose_name=_('title'), max_length=255)
-    slug = models.SlugField(unique=True, help_text=_('Unique name of the service'))
+    title = models.CharField(verbose_name=_('titre'), max_length=255)
+    slug = models.SlugField(unique=True, help_text=_('Nom unique de service'))
     text = models.TextField(blank=True)
     image = models.ForeignKey(
         'wagtailimages.Image',
@@ -84,12 +85,14 @@ class Service(models.Model):
 
     panels = [
         FieldPanel('title'),
+        FieldPanel('slug'),
         FieldPanel('text'),
         ImageChooserPanel('image'),
     ]
 
     class Meta:
         db_table = 'portfolio_service'
+        verbose_name = _('Service')
 
     def __str__(self):
         return self.title
@@ -115,3 +118,53 @@ class HomePageServicePlacement(Orderable, models.Model):
 
     def __str__(self):
         return self.page.title + " -> " + self.service.title
+
+
+@register_snippet
+class Project(models.Model):
+    title = models.CharField(verbose_name=_('titre'), max_length=255)
+    teaser = models.CharField(verbose_name=_('Résumé'), max_length=255)
+    date = models.DateField(null=True, blank=True)
+    text = models.TextField(blank=True)
+    image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
+
+    panels = [
+        FieldPanel('title'),
+        FieldPanel('teaser'),
+        FieldPanel('date'),
+        FieldPanel('text'),
+        ImageChooserPanel('image'),
+    ]
+
+    class Meta:
+        db_table = 'portfolio_project'
+        verbose_name = _('Projet')
+
+    def __str__(self):
+        return self.title
+
+    def delete(self, *args, **kwargs):
+        with transaction.atomic():
+            self.image.delete()
+            super().delete(*args, **kwargs)
+
+
+class HomePageProjectPlacement(Orderable, models.Model):
+    page = ParentalKey(HomePage, on_delete=models.CASCADE, related_name='project_placements')
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='+')
+
+    panels = [
+        SnippetChooserPanel('project'),
+    ]
+
+    class Meta:
+        db_table = 'portfolio_homepage_project'
+
+    def __str__(self):
+        return self.page.title + " -> " + self.project.title

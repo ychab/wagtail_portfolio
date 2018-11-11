@@ -25,20 +25,20 @@ class ContactFormSubmission(models.Model):
 @register_setting(icon='placeholder')
 class PortfolioSettings(BaseSetting):
     navbar_title = models.CharField(
-        verbose_name=_('Navbar title'),
+        verbose_name=_('Titre menu'),
         max_length=255,
         blank=True,
         default='',
     )
 
     seo_keywords = models.CharField(
-        verbose_name=_('SEO keywords'),
+        verbose_name=_('Mots clés SEO'),
         max_length=256,
         blank=True,
         default='',
     )
     seo_description = models.CharField(
-        verbose_name=_('SEO description'),
+        verbose_name=_('Description SEO'),
         max_length=512,
         blank=True,
         default='',
@@ -51,13 +51,13 @@ class PortfolioSettings(BaseSetting):
 
     address = models.CharField(max_length=255, blank=True, default='')
     email = models.EmailField(
-        help_text=_('The contact email to display in footer.'),
+        help_text=_('L\'adresse email affiché en pied de page.'),
         blank=True,
         default='',
     )
     phone = models.CharField(max_length=128, blank=True, default='')
     email_form = models.EmailField(
-        help_text=_('The email to send form submission.'),
+        help_text=_('L\'adresse email de contact du formulaire.'),
         blank=True,
         default='',
     )
@@ -88,11 +88,11 @@ class PortfolioSettings(BaseSetting):
     ]
 
     edit_handler = TabbedInterface([
-        ObjectList(global_panels, heading=_('Global')),
+        ObjectList(global_panels, heading=_('Générale')),
         ObjectList(seo_panels, heading=_('SEO')),
-        ObjectList(social_panels, heading=_('Social network')),
+        ObjectList(social_panels, heading=_('Réseaux sociaux')),
         ObjectList(contact_panels, heading=_('Contact')),
-        ObjectList(timetable_panels, heading=_('Timetable')),
+        ObjectList(timetable_panels, heading=_('Horaires')),
     ])
 
     class Meta:

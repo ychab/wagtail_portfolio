@@ -51,7 +51,7 @@ class ContactView(FormView):
             'message': form.cleaned_data['message'],
         }
 
-        subject = _('Website %(site)s - you received a new contact email' % {'site': current_site.site_name})
+        subject = _('Site internet %(site)s - vous avez reçu un nouvel email de contact' % {'site': current_site.site_name})
         body_txt = loader.render_to_string('contact/body.txt', context)
         body_html = loader.render_to_string('contact/body.html', context)
         send_mail(
