@@ -96,3 +96,9 @@ img::selection {
 img::-moz-selection {
   background: transparent;
 }
+
+// Custom Portfolio addons
+
+img.logo {
+  height: 45px;
+}
