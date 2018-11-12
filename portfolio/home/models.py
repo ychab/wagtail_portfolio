@@ -33,6 +33,20 @@ class HomePage(Page):
         related_name='+',
     )
 
+    service_description = models.CharField(
+        verbose_name=_('Description'),
+        max_length=255,
+        blank=True,
+        default='',
+    )
+
+    project_description = models.CharField(
+        verbose_name=_('Description'),
+        max_length=255,
+        blank=True,
+        default='',
+    )
+
     about_title = models.CharField(
         verbose_name=_('title'),
         max_length=255,
@@ -40,6 +54,13 @@ class HomePage(Page):
         default='',
     )
     about_text = RichTextField(blank=True)
+
+    contact_description = models.CharField(
+        verbose_name=_('Description'),
+        max_length=255,
+        blank=True,
+        default='',
+    )
 
     content_panels = Page.content_panels + [
         MultiFieldPanel(
@@ -50,13 +71,32 @@ class HomePage(Page):
             ],
             heading=_('Entête'),
         ),
-        InlinePanel('service_placements', label=_("Services")),
+        MultiFieldPanel(
+            [
+                FieldPanel('service_description'),
+                InlinePanel('service_placements', label=_("Services")),
+            ],
+            heading=_('Service'),
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel('project_description'),
+                InlinePanel('project_placements', label=_("Projets")),
+            ],
+            heading=_('Projet'),
+        ),
         MultiFieldPanel(
             [
                 FieldPanel('about_title'),
                 RichTextFieldPanel('about_text'),
             ],
             heading=_('À propos'),
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel('contact_description'),
+            ],
+            heading=_('Contact'),
         ),
     ]
 

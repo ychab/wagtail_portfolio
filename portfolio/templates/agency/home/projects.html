@@ -1,0 +1,19 @@
+{% load i18n %}
+
+<section class="bg-light" id="portfolio">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2 class="section-heading text-uppercase">{% trans 'Mes derniers projets' %}</h2>
+                {% if self.project_description %}
+                    <h3 class="section-subheading text-muted">{{ self.project_description }}</h3>
+                {% endif %}
+            </div>
+        </div>
+        <div class="row">
+            {% for placement in self.project_placements.all %}
+                {% include 'home/project_grid.html' with project=placement.project index=loop.index %}
+            {% endfor %}
+        </div>
+    </div>
+</section>

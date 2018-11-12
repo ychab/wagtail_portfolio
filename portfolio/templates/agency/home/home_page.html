@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block content %}
+
+    <!-- Header -->
+    {% include 'home/header.html' %}
+
+    <!-- Services -->
+    {% include 'home/services.html' %}
+
+    <!-- Portfolio Grid -->
+    {% include 'home/projects.html' %}
+
+    <!-- Portfolio Modals -->
+    {% for placement in self.project_placements.all %}
+        {% include 'home/project_modal.html' with project=placement.project index=loop.index %}
+    {% endfor %}
+
+    <!-- About -->
+    {% include 'home/about.html' %}
+
+    <!-- Team -->
+    {% include 'home/team.html' %}
+
+    <!-- Clients -->
+    {% include 'home/client.html' %}
+
+    <!-- Contact -->
+    {% include 'home/contact_form.html' %}
+
+{% endblock %}
