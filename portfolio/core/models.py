@@ -9,19 +9,6 @@ from wagtail.contrib.settings.registry import register_setting
 from wagtail.core.fields import RichTextField
 
 
-class ContactFormSubmission(models.Model):
-    name = models.CharField(max_length=255)
-    email = models.EmailField()
-    phone = models.CharField(max_length=128, blank=True, default='')
-    message = models.TextField()
-
-    datetime = models.DateTimeField(auto_now=True)
-    ip_address = models.GenericIPAddressField()
-
-    def __str__(self):
-        return '{} - {} - {}'.format(self.name, self.email, self.datetime)
-
-
 @register_setting(icon='placeholder')
 class PortfolioSettings(BaseSetting):
     navbar_title = models.CharField(
@@ -98,3 +85,16 @@ class PortfolioSettings(BaseSetting):
     class Meta:
         db_table = 'portfolio_settings'
         verbose_name = 'Portfolio'
+
+
+class ContactFormSubmission(models.Model):
+    name = models.CharField(max_length=255)
+    email = models.EmailField()
+    phone = models.CharField(max_length=128, blank=True, default='')
+    message = models.TextField()
+
+    datetime = models.DateTimeField(auto_now=True)
+    ip_address = models.GenericIPAddressField()
+
+    def __str__(self):
+        return '{} - {} - {}'.format(self.name, self.email, self.datetime)

@@ -18,6 +18,26 @@ from modelcluster.fields import ParentalKey
 from portfolio.core.forms import ContactForm
 
 
+class ServiceBlock(blocks.StructBlock):
+    name = blocks.CharBlock(max_length=128)
+    description = blocks.TextBlock(required=False)
+    icon = blocks.CharBlock(max_length=128)
+
+    class Meta:
+        template = 'home/blocks/service.html'
+
+
+class ProjectBlock(blocks.StructBlock):
+    name = blocks.CharBlock(max_length=128)
+    heading = blocks.CharBlock(max_length=255)
+    date = blocks.DateBlock(required=False)
+    text = blocks.TextBlock(blank=True)
+    image = ImageChooserBlock()
+
+    class Meta:
+        template = 'home/blocks/project.html'
+
+
 class TeamMemberBlock(blocks.StructBlock):
     name = blocks.CharBlock()
     job = blocks.CharBlock(required=False)
@@ -25,7 +45,7 @@ class TeamMemberBlock(blocks.StructBlock):
 
     class Meta:
         template = 'home/blocks/team_member.html'
-        icon='user'
+        icon = 'user'
 
 
 class HomePage(Page):
@@ -45,18 +65,34 @@ class HomePage(Page):
         related_name='+',
     )
 
-    service_description = models.CharField(
-        verbose_name=_('Description'),
-        max_length=255,
+    # service_description = models.CharField(
+    #     verbose_name=_('Description'),
+    #     max_length=255,
+    #     blank=True,
+    #     default='',
+    # )
+    services = StreamField(
+        [
+            ('description', blocks.CharBlock(required=False, max_length=255))
+            ('service', ServiceBlock())
+        ],
+        null=True,
         blank=True,
-        default='',
     )
 
-    project_description = models.CharField(
-        verbose_name=_('Description'),
-        max_length=255,
+    # project_description = models.CharField(
+    #     verbose_name=_('Description'),
+    #     max_length=255,
+    #     blank=True,
+    #     default='',
+    # )
+    projects = StreamField(
+        [
+            ('description', blocks.CharBlock(required=False, max_length=255))
+            ('project', ProjectBlock())
+        ],
+        null=True,
         blank=True,
-        default='',
     )
 
     about_title = models.CharField(
@@ -76,6 +112,8 @@ class HomePage(Page):
 
     team_members = StreamField(
         [
+            ('title', blocks.CharBlock(max_length=128))
+            ('description', blocks.CharBlock(required=False, max_length=255))
             ('member', TeamMemberBlock())
         ],
         null=True,
@@ -131,126 +169,3 @@ class HomePage(Page):
         # Fix django meta model ordering bug??
         context['services'] = [p.service for p in self.service_placements.all().order_by('sort_order')]
         return context
-
-
-@register_snippet
-class Service(models.Model):
-    title = models.CharField(verbose_name=_('titre'), max_length=255)
-    slug = models.SlugField(unique=True, help_text=_('Nom unique de service'))
-    text = models.TextField(blank=True)
-    icon = models.CharField(max_length=128)
-
-    panels = [
-        FieldPanel('title'),
-        FieldPanel('slug'),
-        FieldPanel('text'),
-        FieldPanel('icon'),
-    ]
-
-    class Meta:
-        db_table = 'portfolio_service'
-        verbose_name = _('Service')
-
-    def __str__(self):
-        return self.title
-
-
-class HomePageServicePlacement(Orderable, models.Model):
-    page = ParentalKey(HomePage, on_delete=models.CASCADE, related_name='service_placements')
-    service = models.ForeignKey(Service, on_delete=models.CASCADE, related_name='+')
-
-    panels = [
-        SnippetChooserPanel('service'),
-    ]
-
-    class Meta:
-        db_table = 'portfolio_homepage_service'
-
-    def __str__(self):
-        return self.page.title + " -> " + self.service.title
-
-
-@register_snippet
-class Project(models.Model):
-    title = models.CharField(verbose_name=_('titre'), max_length=255)
-    teaser = models.CharField(verbose_name=_('Résumé'), max_length=255)
-    date = models.DateField(null=True, blank=True)
-    text = models.TextField(blank=True)
-    image = models.ForeignKey(
-        'wagtailimages.Image',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+',
-    )
-
-    panels = [
-        FieldPanel('title'),
-        FieldPanel('teaser'),
-        FieldPanel('date'),
-        FieldPanel('text'),
-        ImageChooserPanel('image'),
-    ]
-
-    class Meta:
-        db_table = 'portfolio_project'
-        verbose_name = _('Projet')
-
-    def __str__(self):
-        return self.title
-
-
-class HomePageProjectPlacement(Orderable, models.Model):
-    page = ParentalKey(HomePage, on_delete=models.CASCADE, related_name='project_placements')
-    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='+')
-
-    panels = [
-        SnippetChooserPanel('project'),
-    ]
-
-    class Meta:
-        db_table = 'portfolio_homepage_project'
-
-    def __str__(self):
-        return self.page.title + " -> " + self.project.title
-
-#
-# @register_snippet
-# class TeamMember(models.Model):
-#     name = models.CharField(verbose_name=_('Nom'), max_length=255)
-#     job = models.CharField(verbose_name=_('Fonction'), max_length=255)
-#     photo = models.ForeignKey(
-#         'wagtailimages.Image',
-#         null=True,
-#         blank=True,
-#         on_delete=models.SET_NULL,
-#         related_name='+',
-#     )
-#
-#     panels = [
-#         FieldPanel('name'),
-#         FieldPanel('job'),
-#         ImageChooserPanel('photo'),
-#     ]
-#
-#     class Meta:
-#         db_table = 'portfolio_team_member'
-#         verbose_name = _('Équipier')
-#
-#     def __str__(self):
-#         return self.name
-#
-#
-# class HomePageTeamMemberPlacement(Orderable, models.Model):
-#     page = ParentalKey(HomePage, on_delete=models.CASCADE, related_name='team_members_placements')
-#     member = models.ForeignKey(TeamMember, on_delete=models.CASCADE, related_name='+')
-#
-#     panels = [
-#         SnippetChooserPanel('member'),
-#     ]
-#
-#     class Meta:
-#         db_table = 'portfolio_homepage_team_member'
-#
-#     def __str__(self):
-#         return self.page.title + " -> " + self.member.name
