@@ -65,32 +65,26 @@ class HomePage(Page):
         related_name='+',
     )
 
-    # service_description = models.CharField(
-    #     verbose_name=_('Description'),
-    #     max_length=255,
-    #     blank=True,
-    #     default='',
-    # )
+    service_description = models.CharField(
+        verbose_name=_('Description'),
+        max_length=255,
+        blank=True,
+        default='',
+    )
     services = StreamField(
-        [
-            ('description', blocks.CharBlock(required=False, max_length=255))
-            ('service', ServiceBlock())
-        ],
+        [('service', ServiceBlock())],
         null=True,
         blank=True,
     )
 
-    # project_description = models.CharField(
-    #     verbose_name=_('Description'),
-    #     max_length=255,
-    #     blank=True,
-    #     default='',
-    # )
+    project_description = models.CharField(
+        verbose_name=_('Description'),
+        max_length=255,
+        blank=True,
+        default='',
+    )
     projects = StreamField(
-        [
-            ('description', blocks.CharBlock(required=False, max_length=255))
-            ('project', ProjectBlock())
-        ],
+        [('project', ProjectBlock())],
         null=True,
         blank=True,
     )
@@ -112,9 +106,9 @@ class HomePage(Page):
 
     team_members = StreamField(
         [
-            ('title', blocks.CharBlock(max_length=128))
-            ('description', blocks.CharBlock(required=False, max_length=255))
-            ('member', TeamMemberBlock())
+            ('title', blocks.CharBlock(max_length=128)),
+            ('description', blocks.CharBlock(required=False, max_length=255)),
+            ('member', TeamMemberBlock()),
         ],
         null=True,
         blank=True,
@@ -132,14 +126,14 @@ class HomePage(Page):
         MultiFieldPanel(
             [
                 FieldPanel('service_description'),
-                InlinePanel('service_placements', label=_("Services")),
+                StreamFieldPanel('services'),
             ],
             heading=_('Service'),
         ),
         MultiFieldPanel(
             [
                 FieldPanel('project_description'),
-                InlinePanel('project_placements', label=_("Projets")),
+                StreamFieldPanel('projects'),
             ],
             heading=_('Projet'),
         ),
@@ -166,6 +160,4 @@ class HomePage(Page):
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
         context['contact_form'] = ContactForm()
-        # Fix django meta model ordering bug??
-        context['services'] = [p.service for p in self.service_placements.all().order_by('sort_order')]
         return context
