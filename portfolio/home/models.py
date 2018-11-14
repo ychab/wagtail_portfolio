@@ -1,12 +1,14 @@
-from django.db import models, transaction
+from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.edit_handlers import (
     FieldPanel, InlinePanel, MultiFieldPanel, RichTextFieldPanel,
-)
+    StreamFieldPanel)
 from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField
-from wagtail.core.fields import RichTextField
+from wagtail.core import blocks
+from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core.models import Page, Orderable
+from wagtail.images.blocks import ImageChooserBlock
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 from wagtail.snippets.models import register_snippet
@@ -14,6 +16,16 @@ from wagtail.snippets.models import register_snippet
 from modelcluster.fields import ParentalKey
 
 from portfolio.core.forms import ContactForm
+
+
+class TeamMemberBlock(blocks.StructBlock):
+    name = blocks.CharBlock()
+    job = blocks.CharBlock(required=False)
+    photo = ImageChooserBlock()
+
+    class Meta:
+        template = 'home/blocks/team_member.html'
+        icon='user'
 
 
 class HomePage(Page):
@@ -62,6 +74,14 @@ class HomePage(Page):
         default='',
     )
 
+    team_members = StreamField(
+        [
+            ('member', TeamMemberBlock())
+        ],
+        null=True,
+        blank=True,
+    )
+
     content_panels = Page.content_panels + [
         MultiFieldPanel(
             [
@@ -98,6 +118,7 @@ class HomePage(Page):
             ],
             heading=_('Contact'),
         ),
+        StreamFieldPanel('team_members'),
     ]
 
     class Meta:
@@ -107,7 +128,7 @@ class HomePage(Page):
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
         context['contact_form'] = ContactForm()
-        # Fix django ordering field bug??
+        # Fix django meta model ordering bug??
         context['services'] = [p.service for p in self.service_placements.all().order_by('sort_order')]
         return context
 
@@ -132,13 +153,6 @@ class Service(models.Model):
 
     def __str__(self):
         return self.title
-
-    def delete(self, *args, **kwargs):
-        with transaction.atomic():
-            # We need to call model instance method BEFORE deleting the
-            # instance itself to delete image in cascade.
-            self.image.delete()
-            super().delete(*args, **kwargs)
 
 
 class HomePageServicePlacement(Orderable, models.Model):
@@ -185,11 +199,6 @@ class Project(models.Model):
     def __str__(self):
         return self.title
 
-    def delete(self, *args, **kwargs):
-        with transaction.atomic():
-            self.image.delete()
-            super().delete(*args, **kwargs)
-
 
 class HomePageProjectPlacement(Orderable, models.Model):
     page = ParentalKey(HomePage, on_delete=models.CASCADE, related_name='project_placements')
@@ -204,3 +213,44 @@ class HomePageProjectPlacement(Orderable, models.Model):
 
     def __str__(self):
         return self.page.title + " -> " + self.project.title
+
+#
+# @register_snippet
+# class TeamMember(models.Model):
+#     name = models.CharField(verbose_name=_('Nom'), max_length=255)
+#     job = models.CharField(verbose_name=_('Fonction'), max_length=255)
+#     photo = models.ForeignKey(
+#         'wagtailimages.Image',
+#         null=True,
+#         blank=True,
+#         on_delete=models.SET_NULL,
+#         related_name='+',
+#     )
+#
+#     panels = [
+#         FieldPanel('name'),
+#         FieldPanel('job'),
+#         ImageChooserPanel('photo'),
+#     ]
+#
+#     class Meta:
+#         db_table = 'portfolio_team_member'
+#         verbose_name = _('Équipier')
+#
+#     def __str__(self):
+#         return self.name
+#
+#
+# class HomePageTeamMemberPlacement(Orderable, models.Model):
+#     page = ParentalKey(HomePage, on_delete=models.CASCADE, related_name='team_members_placements')
+#     member = models.ForeignKey(TeamMember, on_delete=models.CASCADE, related_name='+')
+#
+#     panels = [
+#         SnippetChooserPanel('member'),
+#     ]
+#
+#     class Meta:
+#         db_table = 'portfolio_homepage_team_member'
+#
+#     def __str__(self):
+#         return self.page.title + " -> " + self.member.name
