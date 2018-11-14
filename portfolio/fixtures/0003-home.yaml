@@ -8,18 +8,18 @@
 -   model: home.service
     pk: 1
     fields: {title: "Cours d'\xE9ducation canine", slug: cours, text: "Je vous propose\
-            \ des cours \xE0 domicile et en ext\xE9rieur (parcs)", image: 1}
+            \ des cours \xE0 domicile et en ext\xE9rieur (parcs)", icon: "fa-chalkboard-teacher"}
 -   model: home.service
     pk: 2
     fields: {title: "\xC9valuation", slug: evaluation, text: "J'effectue une \xE9\
-            valuation de votre chien et vous propose des solutions", image: 1}
+            valuation de votre chien et vous propose des solutions", icon: "fa-poll"}
 -   model: home.service
     pk: 3
     fields: {title: "Ballade \xE9ducative", slug: ballade, text: "Vous n'arrivez plus\
-            \ \xE0 vous ballader avec votre chien ? Je peux vous aidder...", image: 1}
+            \ \xE0 vous ballader avec votre chien ? Je peux vous aidder...", icon: "fa-dog"}
 -   model: home.service
     pk: 4
-    fields: {title: Ventes de produits, slug: vente, text: 'Alimentation, etc', image: 1}
+    fields: {title: Ventes de produits, slug: vente, text: 'Alimentation, etc', icon: "fa-shopping-basket"}
 -   model: home.homepageserviceplacement
     pk: 1
     fields: {sort_order: 0, page: 3, service: 1}

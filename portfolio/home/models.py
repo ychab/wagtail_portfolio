@@ -107,6 +107,8 @@ class HomePage(Page):
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
         context['contact_form'] = ContactForm()
+        # Fix django ordering field bug??
+        context['services'] = [p.service for p in self.service_placements.all().order_by('sort_order')]
         return context
 
 
@@ -115,19 +117,13 @@ class Service(models.Model):
     title = models.CharField(verbose_name=_('titre'), max_length=255)
     slug = models.SlugField(unique=True, help_text=_('Nom unique de service'))
     text = models.TextField(blank=True)
-    image = models.ForeignKey(
-        'wagtailimages.Image',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+',
-    )
+    icon = models.CharField(max_length=128)
 
     panels = [
         FieldPanel('title'),
         FieldPanel('slug'),
         FieldPanel('text'),
-        ImageChooserPanel('image'),
+        FieldPanel('icon'),
     ]
 
     class Meta:
