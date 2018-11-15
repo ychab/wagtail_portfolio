@@ -1,6 +1,5 @@
 {% load wagtailimages_tags %}
 
-
 <div class="col-md-4 col-sm-6 portfolio-item">
 
     <a class="portfolio-link" data-toggle="modal" href="#portfolioModal{{ index }}">
@@ -9,11 +8,11 @@
                 <i class="fas fa-plus fa-3x"></i>
             </div>
         </div>
-        {% image project.image fill-400x300 class="img-fluid" %}
+        {% image value.image fill-400x300 class="img-fluid" %}
     </a>
 
     <div class="portfolio-caption">
-        <h4>{{ project.image }}</h4>
-        <p class="text-muted">{{ project.teaser }}</p>
+        <h4>{{ value.name }}</h4>
+        <p class="text-muted">{{ value.subheading }}</p>
     </div>
 </div>

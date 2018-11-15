@@ -74,6 +74,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
+            # Toggle comments to switch between themes. Also toggle static below.
             os.path.join(PROJECT_DIR, 'templates', 'agency'),
             # os.path.join(PROJECT_DIR, 'templates', 'freelancer'),
         ],
@@ -137,7 +138,9 @@ STATICFILES_FINDERS = [
 ]
 
 STATICFILES_DIRS = [
-    os.path.join(PROJECT_DIR, 'static'),
+    # Toggle to switch between themes.
+    os.path.join(PROJECT_DIR, 'static', 'agency'),
+    # os.path.join(PROJECT_DIR, 'static', 'freelancer'),
 ]
 
 # ManifestStaticFilesStorage is recommended in production, to prevent outdated

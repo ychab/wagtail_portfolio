@@ -86,18 +86,9 @@ section h3.section-subheading {
   box-shadow: 0 0 0 0.2rem rgba(254, 209, 55, 0.5) !important;
 }
 
-::-moz-selection {
-  background: #ccc;
-  text-shadow: none;
-}
-
 ::selection {
   background: #ccc;
   text-shadow: none;
-}
-
-img::-moz-selection {
-  background: transparent;
 }
 
 img::selection {
@@ -599,7 +590,6 @@ header.masthead .intro-text .intro-heading {
 
 section#contact {
   background-color: #017F40;
-  background-image: url("../img/map-image.png");
   background-repeat: no-repeat;
   background-position: center;
 }

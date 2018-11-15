@@ -18,12 +18,11 @@ logger = logging.getLogger('portfolio.contact')
 
 class ContactView(FormView):
     form_class = ContactForm
-    template_name = 'contact/../templates/agency/contact_form.html'
+    template_name = 'home/contact_form.html'
     success_url = 'home'  # Just because we have to set one...
 
     def form_valid(self, form):
         ret = super().form_valid(form)
-
 
         ip_address, is_routable = get_client_ip(self.request)
         if ip_address in settings.CONTACT_FORM_IP_ADDRESS_BLACKLIST:

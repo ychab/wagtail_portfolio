@@ -1,12 +1,12 @@
 {% load i18n wagtailimages_tags %}
 
-{% image self.header_image fill-1518x759 as header_photo %}
+{% image self.header_slide fill-1518x759 as header_slide %}
 
-<header class="masthead"{% if self.header_image %}style="background-image: url({{ header_photo.url }});"{% endif %}>
+<header class="masthead"{% if self.header_slide %} style="background-image: url({{ header_slide.url }});"{% endif %}>
     <div class="container">
         <div class="intro-text">
-            <div class="intro-lead-in">{{ self.header_title }}</div>
-            <div class="intro-heading text-uppercase">{{ self.header_text }}</div>
+            <div class="intro-lead-in">{{ self.header_lead }}</div>
+            <div class="intro-heading text-uppercase">{{ self.header_heading }}</div>
             <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#services">
                 {% trans 'En savoir plus' %}
             </a>

@@ -1,19 +1,21 @@
-{% load i18n %}
+{% load i18n wagtailcore_tags %}
 
 <section class="bg-light" id="portfolio">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
                 <h2 class="section-heading text-uppercase">{% trans 'Mes derniers projets' %}</h2>
-                {% if self.project_description %}
-                    <h3 class="section-subheading text-muted">{{ self.project_description }}</h3>
+                {% if self.project_subheading %}
+                    <h3 class="section-subheading text-muted">{{ self.project_subheading }}</h3>
                 {% endif %}
             </div>
         </div>
+
         <div class="row">
-            {% for placement in self.project_placements.all %}
-                {% include 'home/project_grid.html' with project=placement.project index=loop.index %}
-            {% endfor %}
+        {% for project in self.projects %}
+            {% include_block project %}
+        {% endfor  %}
         </div>
+
     </div>
 </section>

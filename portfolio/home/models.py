@@ -2,40 +2,47 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from wagtail.admin.edit_handlers import (
-    FieldPanel, InlinePanel, MultiFieldPanel, RichTextFieldPanel,
-    StreamFieldPanel)
-from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField
+    FieldPanel, MultiFieldPanel, RichTextFieldPanel, StreamFieldPanel,
+)
 from wagtail.core import blocks
 from wagtail.core.fields import RichTextField, StreamField
-from wagtail.core.models import Page, Orderable
+from wagtail.core.models import Page
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.images.edit_handlers import ImageChooserPanel
-from wagtail.snippets.edit_handlers import SnippetChooserPanel
-from wagtail.snippets.models import register_snippet
-
-from modelcluster.fields import ParentalKey
 
 from portfolio.core.forms import ContactForm
 
 
 class ServiceBlock(blocks.StructBlock):
     name = blocks.CharBlock(max_length=128)
-    description = blocks.TextBlock(required=False)
+    text = blocks.TextBlock()
     icon = blocks.CharBlock(max_length=128)
 
     class Meta:
         template = 'home/blocks/service.html'
+        icon = 'time'
 
 
 class ProjectBlock(blocks.StructBlock):
     name = blocks.CharBlock(max_length=128)
-    heading = blocks.CharBlock(max_length=255)
-    date = blocks.DateBlock(required=False)
-    text = blocks.TextBlock(blank=True)
+    subheading = blocks.CharBlock(
+        max_length=128,
+        required=False,
+        help_text=_('Sous-titre dans la vue grille'),
+    )
+    intro = blocks.CharBlock(
+        max_length=255,
+        required=False,
+        help_text=_('Sous-titre dans la vue modal (grand écran)'),
+    )
     image = ImageChooserBlock()
+    text = blocks.TextBlock(required=False)
+    date = blocks.DateBlock(required=False)
+    client = blocks.CharBlock(required=False)
 
     class Meta:
-        template = 'home/blocks/project.html'
+        template = 'home/blocks/project_grid.html'
+        icon = 'date'
 
 
 class TeamMemberBlock(blocks.StructBlock):
@@ -45,28 +52,35 @@ class TeamMemberBlock(blocks.StructBlock):
 
     class Meta:
         template = 'home/blocks/team_member.html'
-        icon = 'user'
+        icon = 'group'
 
 
 class HomePage(Page):
-    header_title = models.CharField(
-        verbose_name=_('Title'),
+
+    ### Header ###
+    header_lead = models.CharField(
+        verbose_name=_('Slogan'),
         max_length=255,
         blank=True,
         default='',
     )
-    header_text = models.TextField(verbose_name=_('Text'), blank=True)
-    header_image = models.ForeignKey(
+    header_heading = models.CharField(
+        verbose_name=_('Titre'),
+        max_length=128,
+        default='',
+    )
+    header_slide = models.ForeignKey(
         'wagtailimages.Image',
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        verbose_name=_('Image'),
+        verbose_name=_('Slide'),
         related_name='+',
     )
 
-    service_description = models.CharField(
-        verbose_name=_('Description'),
+    ### Service ###
+    service_subheading = models.CharField(
+        verbose_name=_('Sous-titre'),
         max_length=255,
         blank=True,
         default='',
@@ -77,8 +91,9 @@ class HomePage(Page):
         blank=True,
     )
 
-    project_description = models.CharField(
-        verbose_name=_('Description'),
+    ### Project ###
+    project_subheading = models.CharField(
+        verbose_name=_('Sous-titre'),
         max_length=255,
         blank=True,
         default='',
@@ -89,73 +104,104 @@ class HomePage(Page):
         blank=True,
     )
 
-    about_title = models.CharField(
-        verbose_name=_('title'),
-        max_length=255,
+    ### About ###
+    about_heading = models.CharField(
+        verbose_name=_('Titre'),
+        max_length=128,
+        default='',
+    )
+    about_subheading = models.CharField(
+        verbose_name=_('Sous-titre'),
+        max_length=128,
         blank=True,
         default='',
     )
     about_text = RichTextField(blank=True)
 
-    contact_description = models.CharField(
-        verbose_name=_('Description'),
-        max_length=255,
+    ### Team ###
+    team_heading = models.CharField(
+        verbose_name=_('Titre'),
+        max_length=128,
+        default='',
+    )
+    team_subheading = models.CharField(
+        verbose_name=_('Sous-titre'),
+        max_length=128,
+        blank=True,
+        default='',
+    )
+    team_members = StreamField(
+        [('member', TeamMemberBlock())],
+        null=True,
+        blank=True,
+    )
+    team_text = models.CharField(
+        verbose_name=_('Texte'),
+        max_length=512,
         blank=True,
         default='',
     )
 
-    team_members = StreamField(
-        [
-            ('title', blocks.CharBlock(max_length=128)),
-            ('description', blocks.CharBlock(required=False, max_length=255)),
-            ('member', TeamMemberBlock()),
-        ],
-        null=True,
+    ### Contact ###
+    contact_subheading = models.CharField(
+        verbose_name=_('Sous-titre'),
+        max_length=128,
         blank=True,
+        default='',
     )
 
     content_panels = Page.content_panels + [
         MultiFieldPanel(
             [
-                FieldPanel('header_title'),
-                FieldPanel('header_text'),
-                ImageChooserPanel('header_image'),
+                FieldPanel('header_lead'),
+                FieldPanel('header_heading'),
+                ImageChooserPanel('header_slide'),
             ],
             heading=_('Entête'),
         ),
         MultiFieldPanel(
             [
-                FieldPanel('service_description'),
+                FieldPanel('service_subheading'),
                 StreamFieldPanel('services'),
             ],
-            heading=_('Service'),
+            heading=_('Services'),
         ),
         MultiFieldPanel(
             [
-                FieldPanel('project_description'),
+                FieldPanel('project_subheading'),
                 StreamFieldPanel('projects'),
             ],
-            heading=_('Projet'),
+            heading=_('Projets'),
         ),
         MultiFieldPanel(
             [
-                FieldPanel('about_title'),
+                FieldPanel('about_heading'),
+                FieldPanel('about_subheading'),
                 RichTextFieldPanel('about_text'),
             ],
             heading=_('À propos'),
         ),
         MultiFieldPanel(
             [
-                FieldPanel('contact_description'),
+                FieldPanel('team_heading'),
+                FieldPanel('team_subheading'),
+                FieldPanel('team_text'),
+                StreamFieldPanel('team_members'),
+            ],
+            heading=_('Équipe'),
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel('contact_subheading'),
             ],
             heading=_('Contact'),
         ),
-        StreamFieldPanel('team_members'),
     ]
+
 
     class Meta:
         db_table = 'portfolio_homepage'
-        verbose_name = _('Page d\'accueil')
+        verbose_name = _("Page d'accueil")
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
