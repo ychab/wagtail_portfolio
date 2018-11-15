@@ -18,8 +18,8 @@ logger = logging.getLogger('portfolio.contact')
 
 class ContactView(FormView):
     form_class = ContactForm
-    template_name = 'home/contact_form.html'
-    success_url = 'home'  # Just because we have to set one...
+    template_name = 'home/contact.html'
+    success_url = '/'
 
     def form_valid(self, form):
         ret = super().form_valid(form)
