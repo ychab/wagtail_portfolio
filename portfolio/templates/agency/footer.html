@@ -1,10 +1,10 @@
 {% load i18n wagtailcore_tags %}
 
-<footer>
+<footer class="bg-light">
     <div class="container">
         <div class="row">
 
-            <div class="col-md-4">
+            <div class="col-md-4 mb-lg-0">
                 <h4 class="text-uppercase mb-4">{% trans 'Contact' %}</h4>
 
                 {% if settings.core.PortfolioSettings.address %}
@@ -32,8 +32,8 @@
                 <span class="copyright">Copyright &copy; {{ page.get_site.site_name }} {% now "Y" %}</span>
             </div>
 
-            <div class="col-md-4">
-                <ul class="list-inline social-buttons">
+            <div class="col-md-4 mb-lg-0">
+                <ul class="list-inline social-buttons mb-0">
 
                     {% if settings.core.PortfolioSettings.twitter_url %}
                         <li class="list-inline-item">
@@ -69,7 +69,7 @@
 
                 </ul>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 mb-lg-0">
                 {% if settings.core.PortfolioSettings.timetable %}
                     <h4 class="text-uppercase mb-4">{% trans 'Horaires' %}</h4>
                     {{ settings.core.PortfolioSettings.timetable|richtext }}

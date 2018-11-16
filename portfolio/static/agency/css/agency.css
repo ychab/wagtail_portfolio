@@ -71,13 +71,13 @@ section h3.section-subheading {
 }
 
 .btn-primary {
-  background-color: #ccc;
-  border-color: #ccc;
+  background-color: #017F40;
+  border-color: #017F40;
 }
 
 .btn-primary:active, .btn-primary:focus, .btn-primary:hover {
-  background-color: #b9b9b9 !important;
-  border-color: #b9b9b9 !important;
+  background-color: #01592d !important;
+  border-color: #01592d !important;
   color: white;
 }
 
@@ -119,7 +119,7 @@ img.logo {
 }
 
 #mainNav .navbar-brand {
-  color: #ccc;
+  color: #fff;
   font-family: 'Kaushan Script', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
@@ -224,6 +224,10 @@ header.masthead .intro-text .intro-heading {
   text-transform: none;
 }
 
+#services .text-primary {
+  color: #017F40 !important;
+}
+
 #portfolio .portfolio-item {
   right: 0;
   margin: 0 0 15px;
@@ -244,7 +248,7 @@ header.masthead .intro-text .intro-heading {
   -webkit-transition: all ease 0.5s;
   transition: all ease 0.5s;
   opacity: 0;
-  background: rgba(204, 204, 204, 0.9);
+  background: rgba(1, 127, 64, 0.9);
 }
 
 #portfolio .portfolio-item .portfolio-link .portfolio-hover:hover {
@@ -588,16 +592,6 @@ header.masthead .intro-text .intro-heading {
   margin-top: 0;
 }
 
-section#contact {
-  background-color: #017F40;
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
-section#contact .section-heading {
-  color: #fff;
-}
-
 section#contact .form-group {
   margin-bottom: 25px;
 }
@@ -684,5 +678,5 @@ ul.social-buttons li a {
 }
 
 ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons li a:hover {
-  background-color: #ccc;
+  background-color: #014c27;
 }
