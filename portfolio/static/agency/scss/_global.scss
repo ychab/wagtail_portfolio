@@ -9,14 +9,14 @@ p {
 }
 
 a {
-  color: $primary;
+  color: $gray-700;
   &:hover {
-    color: darken($primary, 10%);
+    color: darken($gray-700, 10%);
   }
 }
 
 .text-primary {
-  color: $primary !important;
+  color: $gray-700 !important;
 }
 
 h1,
