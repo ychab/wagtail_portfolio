@@ -2,7 +2,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 from wagtail.admin.edit_handlers import (
-    FieldPanel, TabbedInterface, ObjectList, RichTextFieldPanel,
+    FieldPanel, ObjectList, RichTextFieldPanel, TabbedInterface,
 )
 from wagtail.contrib.settings.models import BaseSetting
 from wagtail.contrib.settings.registry import register_setting

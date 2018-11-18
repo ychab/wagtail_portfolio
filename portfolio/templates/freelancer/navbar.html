@@ -4,8 +4,8 @@
     <div class="container">
 
         <a class="navbar-brand js-scroll-trigger" href="#page-top">
-            <img src="{% static 'freelancer/img/logo.png' %}" alt="logo" class="logo" />
-            {{ settings.core.PortfolioSettings.navbar_title|default:"Portfolio"}}
+            <img src="{% static 'img/logo.png' %}" alt="logo" class="logo"/>
+            {{ settings.core.PortfolioSettings.navbar_title|default:"Portfolio" }}
         </a>
 
         <button class="navbar-toggler navbar-toggler-right text-uppercase bg-primary text-white rounded" type="button"
@@ -18,15 +18,23 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item mx-0 mx-lg-1">
-                    <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
-                       href="#portfolio">{% trans 'Services' %}</a>
+                    <a class="nav-link py-5 px-0 px-lg-5 rounded js-scroll-trigger"
+                       href="#services">{% trans 'Services' %}</a>
                 </li>
                 <li class="nav-item mx-0 mx-lg-1">
-                    <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
+                    <a class="nav-link py-5 px-0 px-lg-5 rounded js-scroll-trigger"
+                       href="#portfolio">{% trans 'Projets' %}</a>
+                </li>
+                <li class="nav-item mx-0 mx-lg-1">
+                    <a class="nav-link py-5 px-0 px-lg-5 rounded js-scroll-trigger"
                        href="#about">{% trans 'À propos' %}</a>
                 </li>
                 <li class="nav-item mx-0 mx-lg-1">
-                    <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger"
+                    <a class="nav-link py-5 px-0 px-lg-5 rounded js-scroll-trigger"
+                       href="#team">{% trans 'Équipe' %}</a>
+                </li>
+                <li class="nav-item mx-0 mx-lg-1">
+                    <a class="nav-link py-5 px-0 px-lg-5 rounded js-scroll-trigger"
                        href="#contact">{% trans 'Contact' %}</a>
                 </li>
             </ul>

@@ -57,7 +57,7 @@ class TeamMemberBlock(blocks.StructBlock):
 
 class HomePage(Page):
 
-    ### Header ###
+    # Header
     header_lead = models.CharField(
         verbose_name=_('Slogan'),
         max_length=255,
@@ -78,7 +78,7 @@ class HomePage(Page):
         related_name='+',
     )
 
-    ### Service ###
+    # Service
     service_subheading = models.CharField(
         verbose_name=_('Sous-titre'),
         max_length=255,
@@ -91,7 +91,7 @@ class HomePage(Page):
         blank=True,
     )
 
-    ### Project ###
+    # Project
     project_subheading = models.CharField(
         verbose_name=_('Sous-titre'),
         max_length=255,
@@ -104,7 +104,7 @@ class HomePage(Page):
         blank=True,
     )
 
-    ### About ###
+    # About
     about_heading = models.CharField(
         verbose_name=_('Titre'),
         max_length=128,
@@ -118,7 +118,7 @@ class HomePage(Page):
     )
     about_text = RichTextField(blank=True)
 
-    ### Team ###
+    # Team
     team_heading = models.CharField(
         verbose_name=_('Titre'),
         max_length=128,
@@ -142,7 +142,7 @@ class HomePage(Page):
         default='',
     )
 
-    ### Contact ###
+    # Contact
     contact_subheading = models.CharField(
         verbose_name=_('Sous-titre'),
         max_length=128,
@@ -197,7 +197,6 @@ class HomePage(Page):
             heading=_('Contact'),
         ),
     ]
-
 
     class Meta:
         db_table = 'portfolio_homepage'
