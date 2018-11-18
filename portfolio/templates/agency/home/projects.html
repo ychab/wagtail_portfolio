@@ -13,7 +13,7 @@
 
         <div class="row">
         {% for project in self.projects %}
-            {% include_block project %}
+            {% include_block project with index=forloop.counter %}
         {% endfor  %}
         </div>
 

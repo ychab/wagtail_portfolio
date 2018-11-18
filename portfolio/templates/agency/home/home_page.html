@@ -14,7 +14,7 @@
 
     <!-- Portfolio Modals -->
     {% for project in self.projects %}
-        {% include 'home/blocks/project_modal.html' with project=project.value index=loop.index %}
+        {% include 'home/blocks/project_modal.html' with project=project.value index=forloop.counter %}
     {% endfor %}
 
     <!-- About -->

@@ -13,7 +13,7 @@
             <hr class="star-dark mb-5">
             <div class="row">
                 {% for placement in self.service_placements.all %}
-                    {% include 'home/service/grid.html' with service=placement.service index=loop.index %}
+                    {% include 'home/service/grid.html' with service=placement.service index=forloop.counter %}
                 {% endfor %}
             </div>
         </div>
@@ -21,7 +21,7 @@
 
     <!-- Portfolio Modals -->
     {% for placement in self.service_placements.all %}
-        {% include 'home/service/modal.html' with service=placement.service index=loop.index %}
+        {% include 'home/service/modal.html' with service=placement.service index=forloop.counter %}
     {% endfor %}
 
     <!-- About Section -->
