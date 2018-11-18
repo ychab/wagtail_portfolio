@@ -15,7 +15,7 @@
                     <p class="lead mb-0">
                         <a href="mailto:{{ settings.core.PortfolioSettings.email }}"
                            alt="{% trans 'Envoyer un email' %}">
-                            {% trans 'Email: ' %}{{ settings.core.PortfolioSettings.email }}
+                            {{ settings.core.PortfolioSettings.email }}
                         </a>
                     </p>
                 {% endif %}
@@ -23,8 +23,8 @@
                 {% if settings.core.PortfolioSettings.phone %}
                     <p class="lead mb-0">
                         <a href="tel:{{ settings.core.PortfolioSettings.phone }}"
-                           alt="{% trans 'Effectuer un appel téléphonique' %}">
-                            {% trans 'Tél: ' %}{{ settings.core.PortfolioSettings.phone }}
+                           alt="{% trans 'Appeler au numéro téléphonique' %}">
+                            {{ settings.core.PortfolioSettings.phone }}
                         </a>
                     </p>
                 {% endif %}
