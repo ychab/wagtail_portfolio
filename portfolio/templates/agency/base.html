@@ -73,6 +73,17 @@
     <!-- Custom scripts for this template -->
     <script src="{% static 'js/agency.min.js' %}"></script>
 
+    <!-- Google Analytics -->
+    {% with ga_id=settings.core.PortfolioSettings.google_analytics_id %}
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ ga_id }}"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '{{ ga_id }}');
+    </script>
+    {% endwith %}
+
 </body>
 
 </html>

@@ -31,6 +31,13 @@ class PortfolioSettings(BaseSetting):
         default='',
     )
 
+    google_analytics_id = models.CharField(
+        verbose_name=_('Google Analytics ID'),
+        max_length=512,
+        blank=True,
+        default='',
+    )
+
     facebook_url = models.URLField(blank=True, default='')
     twitter_url = models.URLField(blank=True, default='')
     google_plus_url = models.URLField(blank=True, default='')
@@ -57,6 +64,7 @@ class PortfolioSettings(BaseSetting):
     seo_panels = [
         FieldPanel('seo_keywords'),
         FieldPanel('seo_description'),
+        FieldPanel('google_analytics_id'),
     ]
     social_panels = [
         FieldPanel('facebook_url'),
