@@ -2,11 +2,13 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
 from wagtail.admin.edit_handlers import (
-    FieldPanel, ObjectList, RichTextFieldPanel, TabbedInterface,
+    FieldPanel, MultiFieldPanel, ObjectList, RichTextFieldPanel,
+    TabbedInterface,
 )
 from wagtail.contrib.settings.models import BaseSetting
 from wagtail.contrib.settings.registry import register_setting
 from wagtail.core.fields import RichTextField
+from wagtail.images.edit_handlers import ImageChooserPanel
 
 
 @register_setting(icon='placeholder')
@@ -30,12 +32,40 @@ class PortfolioSettings(BaseSetting):
         blank=True,
         default='',
     )
-
     google_analytics_id = models.CharField(
         verbose_name=_('Google Analytics ID'),
+        max_length=128,
+        blank=True,
+        default='',
+    )
+
+    lb_brand = models.CharField(
+        verbose_name=_('Marque'),
+        max_length=128,
+        blank=True,
+        default='',
+    )
+    lb_opening_hours = models.CharField(
+        verbose_name=_('Horaires'),
+        help_text=_('Exemple: Mo,Tu,We,Th,Fr,Sa 10:00-20:30'),
+        max_length=128,
+        blank=True,
+        default='',
+    )
+    lb_polygon = models.CharField(
+        verbose_name=_('Zone de couverture'),
+        help_text=_('Au format polygone. Outil: https://www.doogal.co.uk/polylines.php. Exemple: -1.4585973651364839,47.24680912120602,0 -1.4531042010739839,47.24121534312366,0 -1.3267614276364839,47.83271445708654,0 -1.9969274432614839,47.86404914329155,0 -1.9831945331052339,47.29153808284894,0 -1.4585973651364839,47.24680912120602,0'),
         max_length=512,
         blank=True,
         default='',
+    )
+    lb_image = models.ForeignKey(
+        'wagtailimages.Image',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        verbose_name=_('Local Business Image'),
+        related_name='+',
     )
 
     facebook_url = models.URLField(blank=True, default='')
@@ -64,7 +94,21 @@ class PortfolioSettings(BaseSetting):
     seo_panels = [
         FieldPanel('seo_keywords'),
         FieldPanel('seo_description'),
-        FieldPanel('google_analytics_id'),
+        MultiFieldPanel(
+            [
+                FieldPanel('google_analytics_id'),
+            ],
+            heading=_('Google Analytics'),
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel('lb_brand'),
+                FieldPanel('lb_opening_hours'),
+                FieldPanel('lb_polygon'),
+                ImageChooserPanel('lb_image')
+            ],
+            heading=_('Local Business (Google)'),
+        ),
     ]
     social_panels = [
         FieldPanel('facebook_url'),

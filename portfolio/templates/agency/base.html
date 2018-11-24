@@ -1,4 +1,4 @@
-{% load static wagtailuserbar %}
+{% load static wagtailuserbar wagtailimages_tags %}
 
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
@@ -84,6 +84,40 @@
     </script>
     {% endwith %}
 
+    <!-- Local Business -->
+    {% with psettings=settings.core.PortfolioSettings %}
+        <script type="application/ld+json">
+        {
+            "@context": "http://schema.org",
+            "@type": "LocalBusiness",
+            "name": "{{ self.get_site.site_name }}",
+            "brand": "{{ psettings.lb_brand|default:"" }}",
+            "logo": "{% static 'img/logo.png' %}",
+            "description": "{{ psettings.seo_description|default:"" }}",
+            "url": "{{ base_url }}",
+            {% if psettings.lb_image %}
+            {% image psettings.lb_image width-400 as lb_image %}
+            "image": "{{ psettings.lb_image.url }}",
+            {% endif %}
+            {% if psettings.email %}
+            "email": "mailto:{{ psettings.email }}",
+            {% endif %}
+            "telephone": "{{ psettings.phone|default:"" }}",
+            "openingHours": "{{ psettings.lb_opening_hours|default:"" }}",
+            {% if settings.core.PortfolioSettings.lb_polygon %}
+            "areaServed": {
+                "@type": "GeoShape",
+                "polygon": "{{ settings.core.PortfolioSettings.lb_polygon }}",
+            },
+            {% endif %}
+            "sameAs": [
+                "{{ settings.core.PortfolioSettings.facebook_url|default:"" }}",
+                "{{ settings.core.PortfolioSettings.twitter_url|default:"" }}",
+                "{{ settings.core.PortfolioSettings.google_plus_url|default:"" }}"
+            ]
+        }
+    </script>
+    {% endwith %}
 </body>
 
 </html>

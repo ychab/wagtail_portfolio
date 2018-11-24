@@ -30,7 +30,7 @@ class Migration(migrations.Migration):
             name='PortfolioSettings',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('navbar_title', models.CharField(blank=True, default='', max_length=255, verbose_name='Titre menu')),
+                ('navbar_title', models.CharField(blank=True, default='', max_length=255, verbose_name='Marque - titre menu')),
                 ('seo_keywords', models.CharField(blank=True, default='', max_length=256, verbose_name='Mots clés SEO')),
                 ('seo_description', models.CharField(blank=True, default='', max_length=512, verbose_name='Description SEO')),
                 ('facebook_url', models.URLField(blank=True, default='')),
