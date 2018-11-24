@@ -97,7 +97,7 @@
             "url": "{{ base_url }}",
             {% if psettings.lb_image %}
             {% image psettings.lb_image width-400 as lb_image %}
-            "image": "{{ psettings.lb_image.url }}",
+            "image": "{{ lb_image.url }}",
             {% endif %}
             {% if psettings.email %}
             "email": "mailto:{{ psettings.email }}",
