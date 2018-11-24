@@ -9,13 +9,17 @@
     <!-- Services -->
     {% include 'home/services.html' %}
 
-    <!-- Portfolio Grid -->
-    {% include 'home/projects.html' %}
+    {% if self.projects %}
 
-    <!-- Portfolio Modals -->
-    {% for project in self.projects %}
-        {% include 'home/blocks/project_modal.html' with project=project.value index=forloop.counter %}
-    {% endfor %}
+        <!-- Portfolio Grid -->
+        {% include 'home/projects.html' %}
+
+        <!-- Portfolio Modals -->
+        {% for project in self.projects %}
+            {% include 'home/blocks/project_modal.html' with project=project.value index=forloop.counter %}
+        {% endfor %}
+
+    {% endif  %}
 
     <!-- About -->
     {% include 'home/about.html' %}

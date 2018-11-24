@@ -20,9 +20,11 @@
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger" href="#services">{% trans 'Services' %}</a>
                 </li>
+                {% if self.projects %}
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger" href="#portfolio">{% trans 'Projets' %}</a>
                 </li>
+                {% endif %}
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger" href="#about">{% trans 'À propos' %}</a>
                 </li>
