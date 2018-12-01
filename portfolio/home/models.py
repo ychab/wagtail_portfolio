@@ -93,6 +93,12 @@ class HomePage(Page):
     )
 
     # Project
+    project_heading = models.CharField(
+        verbose_name=_('Titre'),
+        max_length=255,
+        blank=True,
+        default='',
+    )
     project_subheading = models.CharField(
         verbose_name=_('Sous-titre'),
         max_length=255,
@@ -169,6 +175,7 @@ class HomePage(Page):
         ),
         MultiFieldPanel(
             [
+                FieldPanel('project_heading'),
                 FieldPanel('project_subheading'),
                 StreamFieldPanel('projects'),
             ],
