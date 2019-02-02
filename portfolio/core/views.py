@@ -62,7 +62,6 @@ class ContactView(FormView):
             html_message=body_html,
             from_email=None,  # Assume settings.DEFAULT_FROM_EMAIL
             recipient_list=[portfolio_settings.email_form],
-            fail_silently=True,
         )
 
         ContactFormSubmission.objects.create(
