@@ -1,4 +1,4 @@
 psycopg2-binary==2.8.4
 wagtail==2.7
 django-ipware==2.1.0
-pyyaml==5.1.2
+pyyaml==5.4
