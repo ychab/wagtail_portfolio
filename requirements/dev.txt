@@ -2,4 +2,4 @@
 -r docs.txt
 
 django-extensions==2.0.7
-django-debug-toolbar==1.9.1
+django-debug-toolbar==1.11.1
