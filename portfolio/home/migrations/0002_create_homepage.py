@@ -1,5 +1,5 @@
 from django.db import migrations
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 
 def create_homepage(apps, schema_editor):
@@ -48,6 +48,10 @@ def remove_homepage(apps, schema_editor):
 
 
 class Migration(migrations.Migration):
+
+    run_before = [
+        ('wagtailcore', '0053_locale_model'),  # added for Wagtail 2.11 compatibility
+    ]
 
     dependencies = [
         ('home', '0001_initial'),
