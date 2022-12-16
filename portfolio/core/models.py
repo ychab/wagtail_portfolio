@@ -1,18 +1,15 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from wagtail.admin.edit_handlers import (
-    FieldPanel, MultiFieldPanel, ObjectList, RichTextFieldPanel,
-    TabbedInterface,
+from wagtail.admin.panels import (
+    FieldPanel, MultiFieldPanel, ObjectList, TabbedInterface,
 )
-from wagtail.contrib.settings.models import BaseSetting
-from wagtail.contrib.settings.registry import register_setting
-from wagtail.core.fields import RichTextField
-from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
+from wagtail.fields import RichTextField
 
 
 @register_setting(icon='placeholder')
-class PortfolioSettings(BaseSetting):
+class PortfolioSettings(BaseSiteSetting):
     navbar_title = models.CharField(
         verbose_name=_('Titre menu'),
         max_length=255,
@@ -54,7 +51,7 @@ class PortfolioSettings(BaseSetting):
     )
     lb_polygon = models.CharField(
         verbose_name=_('Zone de couverture'),
-        help_text=_('Au format polygone. Outil: https://www.doogal.co.uk/polylines.php. Exemple: -1.4585973651364839,47.24680912120602,0 -1.4531042010739839,47.24121534312366,0 -1.3267614276364839,47.83271445708654,0 -1.9969274432614839,47.86404914329155,0 -1.9831945331052339,47.29153808284894,0 -1.4585973651364839,47.24680912120602,0'),
+        help_text=_('Au format polygone. Outil: https://www.doogal.co.uk/polylines.php. Exemple: -1.4585973651364839,47.24680912120602,0 -1.4531042010739839,47.24121534312366,0 -1.3267614276364839,47.83271445708654,0 -1.9969274432614839,47.86404914329155,0 -1.9831945331052339,47.29153808284894,0 -1.4585973651364839,47.24680912120602,0'),  # noqa
         max_length=512,
         blank=True,
         default='',
@@ -105,7 +102,7 @@ class PortfolioSettings(BaseSetting):
                 FieldPanel('lb_brand'),
                 FieldPanel('lb_opening_hours'),
                 FieldPanel('lb_polygon'),
-                ImageChooserPanel('lb_image')
+                FieldPanel('lb_image')
             ],
             heading=_('Local Business (Google)'),
         ),
@@ -123,7 +120,7 @@ class PortfolioSettings(BaseSetting):
         FieldPanel('email_form'),
     ]
     timetable_panels = [
-        RichTextFieldPanel('timetable'),
+        FieldPanel('timetable'),
     ]
 
     edit_handler = TabbedInterface([

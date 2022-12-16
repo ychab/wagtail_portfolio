@@ -11,9 +11,7 @@ INSTALLED_APPS += [
 ]
 
 INTERNAL_IPS = ('127.0.0.1',)
-MIDDLEWARE += (
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
-)
+MIDDLEWARE.insert(0, 'debug_toolbar.middleware.DebugToolbarMiddleware')
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
@@ -22,6 +20,9 @@ for logger in LOGGING['loggers'].values():
     logger['level'] = 'DEBUG'
 
 AUTH_PASSWORD_VALIDATORS = []
+
+WAGTAILADMIN_BASE_URL = 'http://127.0.0.1:8000'
+WAGTAILAPI_BASE_URL = WAGTAILADMIN_BASE_URL
 
 try:
     from .local import *

@@ -26,3 +26,23 @@ class CreateUserCommandTestCase(TestCase):
         self.assertEqual(user.email, extra_fields['email'])
         self.assertTrue(user.check_password(extra_fields['password']))
         self.assertTrue(user.is_superuser)
+
+    def test_update_superuser(self):
+        out = StringIO()
+
+        user = User.objects.create(
+            username='admin',
+            email='admin@example.com',
+        )
+        new_passwd = 'bar'
+
+        extra_fields = {
+            'username': 'admin',
+            'password': new_passwd,
+            'update': True,
+        }
+        call_command('createadmin', stdout=out, **extra_fields)
+        user.refresh_from_db()
+
+        self.assertTrue(user.check_password(new_passwd))
+        self.assertIn('Superuser updated successfully.', out.getvalue())

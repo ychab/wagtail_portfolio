@@ -2,6 +2,11 @@ from tempfile import gettempdir
 
 from .base import *
 
+INSTALLED_APPS += [
+    # Well... @see https://github.com/wagtail/wagtail/issues/1824
+    'wagtail.contrib.search_promotions',
+]
+
 EMAIL_BACKEND = 'django.core.mail.backends.dummy.EmailBackend'
 
 # Boost perf a little

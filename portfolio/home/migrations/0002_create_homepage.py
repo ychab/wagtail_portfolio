@@ -34,7 +34,7 @@ def create_homepage(apps, schema_editor):
         hostname='localhost', root_page=homepage, is_default_site=True)
 
 
-def remove_homepage(apps, schema_editor):
+def remove_homepage(apps, schema_editor):  # pragma: no cover
     # Get models
     ContentType = apps.get_model('contenttypes.ContentType')
     HomePage = apps.get_model('home.HomePage')

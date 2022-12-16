@@ -2,14 +2,11 @@ from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from wagtail.admin.edit_handlers import (
-    FieldPanel, MultiFieldPanel, RichTextFieldPanel, StreamFieldPanel,
-)
-from wagtail.core import blocks
-from wagtail.core.fields import RichTextField, StreamField
-from wagtail.core.models import Page
+from wagtail import blocks
+from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel
+from wagtail.fields import RichTextField, StreamField
 from wagtail.images.blocks import ImageChooserBlock
-from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.models import Page
 
 from portfolio.core.forms import ContactForm
 
@@ -21,6 +18,14 @@ class ServiceBlock(blocks.StructBlock):
 
     class Meta:
         template = 'home/blocks/service.html'
+        icon = 'time'
+
+
+class ServicesBlock(blocks.StreamBlock):
+    service = ServiceBlock()
+
+    class Meta:
+        template = 'home/blocks/services.html'
         icon = 'time'
 
 
@@ -46,6 +51,14 @@ class ProjectBlock(blocks.StructBlock):
         icon = 'date'
 
 
+class ProjectsBlock(blocks.StreamBlock):
+    project = ProjectBlock()
+
+    class Meta:
+        template = 'home/blocks/projects.html'
+        icon = 'date'
+
+
 class TeamMemberBlock(blocks.StructBlock):
     name = blocks.CharBlock()
     job = blocks.CharBlock(required=False)
@@ -53,6 +66,14 @@ class TeamMemberBlock(blocks.StructBlock):
 
     class Meta:
         template = 'home/blocks/team_member.html'
+        icon = 'group'
+
+
+class TeamBlock(blocks.StreamBlock):
+    member = TeamMemberBlock()
+
+    class Meta:
+        template = 'home/blocks/team.html'
         icon = 'group'
 
 
@@ -87,9 +108,10 @@ class HomePage(Page):
         default='',
     )
     services = StreamField(
-        [('service', ServiceBlock())],
+        ServicesBlock(),
         null=True,
         blank=True,
+        use_json_field=True,
     )
 
     # Project
@@ -106,9 +128,10 @@ class HomePage(Page):
         default='',
     )
     projects = StreamField(
-        [('project', ProjectBlock())],
+        ProjectsBlock(),
         null=True,
         blank=True,
+        use_json_field=True,
     )
 
     # About
@@ -138,9 +161,10 @@ class HomePage(Page):
         default='',
     )
     team_members = StreamField(
-        [('member', TeamMemberBlock())],
+        TeamBlock(),
         null=True,
         blank=True,
+        use_json_field=True,
     )
     team_text = models.CharField(
         verbose_name=_('Texte'),
@@ -162,14 +186,14 @@ class HomePage(Page):
             [
                 FieldPanel('header_lead'),
                 FieldPanel('header_heading'),
-                ImageChooserPanel('header_slide'),
+                FieldPanel('header_slide'),
             ],
             heading=_('Entête'),
         ),
         MultiFieldPanel(
             [
                 FieldPanel('service_subheading'),
-                StreamFieldPanel('services'),
+                FieldPanel('services'),
             ],
             heading=_('Services'),
         ),
@@ -177,7 +201,7 @@ class HomePage(Page):
             [
                 FieldPanel('project_heading'),
                 FieldPanel('project_subheading'),
-                StreamFieldPanel('projects'),
+                FieldPanel('projects'),
             ],
             heading=_('Projets'),
         ),
@@ -185,7 +209,7 @@ class HomePage(Page):
             [
                 FieldPanel('about_heading'),
                 FieldPanel('about_subheading'),
-                RichTextFieldPanel('about_text'),
+                FieldPanel('about_text'),
             ],
             heading=_('À propos'),
         ),
@@ -194,7 +218,7 @@ class HomePage(Page):
                 FieldPanel('team_heading'),
                 FieldPanel('team_subheading'),
                 FieldPanel('team_text'),
-                StreamFieldPanel('team_members'),
+                FieldPanel('team_members'),
             ],
             heading=_('Équipe'),
         ),
@@ -212,6 +236,6 @@ class HomePage(Page):
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
-        context['base_url'] = settings.BASE_URL
+        context['base_url'] = settings.WAGTAILADMIN_BASE_URL
         context['contact_form'] = ContactForm()
         return context

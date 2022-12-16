@@ -16,7 +16,7 @@ LANGUAGE_CODE = 'fr-fr'
 # Wagtail settings
 
 WAGTAIL_SITE_NAME = 'portfolio'
-BASE_URL = 'http://testserver'
+WAGTAILADMIN_BASE_URL = 'http://testserver'
 
 # Portfolio settings
 

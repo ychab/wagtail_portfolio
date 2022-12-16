@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load i18n static wagtailcore_tags %}
+
+{% block content %}
+    <!-- Header -->
+    {% include 'header.html' %}
+    <!-- Services -->
+    {% include_block page.services %}
+    <!-- Projects -->
+    {% include_block page.projects %}
+    <!-- About -->
+    {% include 'home/about.html' %}
+    <!-- Team -->
+    {% include_block page.team_members %}
+    <!-- Contact -->
+    {% include 'home/contact.html' %}
+
+{% endblock %}

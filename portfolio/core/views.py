@@ -8,9 +8,9 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import FormView
 
-from ipware import get_client_ip
+from wagtail.models import Site
 
-from portfolio.home.models import HomePage
+from ipware import get_client_ip
 
 from .forms import ContactForm
 from .models import ContactFormSubmission, PortfolioSettings
@@ -41,9 +41,8 @@ class ContactView(FormView):
                 logger.info('The following IP has exceed the max retry in min delay: {}'.format(ip_address))
                 return ret
 
-        portfolio_settings = PortfolioSettings.for_site(self.request.site)
-        homepage = HomePage.objects.first()
-        current_site = homepage.get_site()
+        current_site = Site.find_for_request(self.request)
+        portfolio_settings = PortfolioSettings.for_site(current_site)
 
         context = {
             'name': form.cleaned_data['name'],

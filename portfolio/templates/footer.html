@@ -1,0 +1,84 @@
+{% load i18n wagtailcore_tags %}
+
+<footer class="bg-light text-center">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-4 mb-5 mb-lg-0">
+                <h4 class="text-uppercase mb-4">{% trans 'Contact' %}</h4>
+
+                {% if settings.core.PortfolioSettings.address %}
+                    <p class="lead mb-0">{{ settings.core.PortfolioSettings.address }}</p>
+                {% endif %}
+
+                {% if settings.core.PortfolioSettings.email %}
+                    <p class="lead mb-0">
+                        <a href="mailto:{{ settings.core.PortfolioSettings.email }}"
+                           alt="{% trans 'Envoyer un email' %}">
+                            {{ settings.core.PortfolioSettings.email }}
+                        </a>
+                    </p>
+                {% endif %}
+
+                {% if settings.core.PortfolioSettings.phone %}
+                    <p class="lead mb-0">
+                        <a href="tel:{{ settings.core.PortfolioSettings.phone }}"
+                           alt="{% trans 'Appeler au numéro téléphonique' %}">
+                            {{ settings.core.PortfolioSettings.phone }}
+                        </a>
+                    </p>
+                {% endif %}
+            </div>
+
+            <div class="col-md-4 mb-5 mb-lg-0">
+                <ul class="list-inline mb-0 social-buttons">
+
+                    {% if settings.core.PortfolioSettings.twitter_url %}
+                        <li class="list-inline-item">
+                            <a href="{{ settings.core.PortfolioSettings.twitter_url }}" alt="{% trans 'Suivez moi sur Twitter' %}">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </li>
+                    {% endif %}
+
+                    {% if settings.core.PortfolioSettings.facebook_url %}
+                        <li class="list-inline-item">
+                            <a href="{{ settings.core.PortfolioSettings.facebook_url }}" alt="{% trans 'Suivez moi sur Facebook' %}">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                        </li>
+                    {% endif %}
+
+                    {% if settings.core.PortfolioSettings.google_plus_url %}
+                        <li class="list-inline-item">
+                            <a href="{{ settings.core.PortfolioSettings.google_plus_url }}" alt="{% trans 'Suivez moi sur Google plus' %}">
+                                <i class="fab fa-google-plus-g"></i>
+                            </a>
+                        </li>
+                    {% endif %}
+
+                    {% if settings.core.PortfolioSettings.instagram_url %}
+                        <li class="list-inline-item">
+                            <a href="{{ settings.core.PortfolioSettings.instagram_url }}" alt="{% trans 'Suivez moi sur Instagram' %}">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                        </li>
+                    {% endif %}
+
+                </ul>
+            </div>
+            <div class="col-md-4 mb-0">
+                {% if settings.core.PortfolioSettings.timetable %}
+                    <h4 class="text-uppercase mb-4">{% trans 'Horaires' %}</h4>
+                    {{ settings.core.PortfolioSettings.timetable|richtext }}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</footer>
+
+<div class="copyright py-4 text-center text-white">
+    <div class="container">
+        <small>Copyright &copy; {{ self.get_site.site_name }} {% now 'Y' %}</small>
+    </div>
+</div>

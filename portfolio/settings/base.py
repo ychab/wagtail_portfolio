@@ -46,6 +46,7 @@ INSTALLED_APPS = [
 
     'modelcluster',
     'taggit',
+    'compressor',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -64,7 +65,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
 
-    'wagtail.contrib.legacy.sitemiddleware.SiteMiddleware',
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 ]
 
@@ -74,9 +74,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            # Toggle comments to switch between themes. Also toggle static below.
-            os.path.join(PROJECT_DIR, 'templates', 'agency'),
-            # os.path.join(PROJECT_DIR, 'templates', 'freelancer'),
+            os.path.join(PROJECT_DIR, 'templates'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -113,6 +111,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
@@ -120,7 +119,6 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
-USE_L10N = True
 USE_TZ = True
 LOCALE_PATHS = (
     os.path.join(PROJECT_DIR, 'locale'),
@@ -135,12 +133,12 @@ FORMAT_MODULE_PATH = [
 STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+
+    'compressor.finders.CompressorFinder',
 ]
 
 STATICFILES_DIRS = [
-    # Toggle to switch between themes.
-    os.path.join(PROJECT_DIR, 'static', 'agency'),
-    #os.path.join(PROJECT_DIR, 'static', 'freelancer'),
+    os.path.join(PROJECT_DIR, 'static'),
 ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
@@ -149,10 +147,9 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
-
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+COMPRESS_ENABLED = False
+COMPRESS_OFFLINE = True
+COMPRESS_OUTPUT_DIR = 'cache'
 
 LOGGING = DEFAULT_LOGGING.copy()
 # Define root logger of the project.
@@ -167,7 +164,17 @@ WAGTAIL_SITE_NAME = "portfolio"
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
-BASE_URL = 'http://testserver'
+WAGTAILADMIN_BASE_URL = 'http://testserver'
+
+WAGTAIL_PASSWORD_MANAGEMENT_ENABLED = False
+
+WAGTAILIMAGES_MAX_UPLOAD_SIZE = 10 * 1024 * 1024  # i.e. 10MB, check WSGI + frontend
+WAGTAILIMAGES_JPEG_QUALITY = 90
+WAGTAILIMAGES_WEBP_QUALITY = 90
+WAGTAILIMAGES_FORMAT_CONVERSIONS = {
+    'bmp': 'jpeg',
+    'webp': 'webp',  # be player! better quality and very lighter than PNG!!
+}
 
 # Portfolio settings
 

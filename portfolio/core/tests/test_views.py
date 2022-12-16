@@ -1,4 +1,4 @@
-from datetime import datetime
+import datetime
 from unittest import mock
 
 from django.core import mail
@@ -27,7 +27,7 @@ class ContactViewTestCase(TestCase):
 
     @classmethod
     def setUpTestData(cls):
-        site = Site.objects.last()
+        site = Site.objects.get(is_default_site=True)
         PortfolioSettings.objects.get_or_create(site=site, defaults={
             'email_form': 'foo@example.fr',
         })
@@ -98,7 +98,7 @@ class ContactViewTestCase(TestCase):
 
         # Max attemp exceed, but in the past.
         with mock.patch.object(timezone, 'now') as mock_tz:
-            mock_tz.return_value = timezone.make_aware(datetime(2018, 11, 18, 13, 0, 0), timezone.utc)
+            mock_tz.return_value = timezone.make_aware(datetime.datetime(2018, 11, 18, 13, 0, 0), datetime.timezone.utc)  # noqa
             for i in range(0, MAX_ATTEMPT + 1):
                 ContactFormSubmission.objects.create(ip_address=LAMBDA_IP, **data)
 
