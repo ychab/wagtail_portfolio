@@ -45,3 +45,21 @@ CONTACT_FORM_IP_ADDRESS_BLACKLIST = []
 # CSRF_COOKIE_SECURE = True
 # SESSION_COOKIE_SECURE = True
 # SECURE_SSL_REDIRECT = True  # Just in case, should be done by webserver instead
+
+# CACHES = {
+#     'default': {
+#         'BACKEND': 'django.core.cache.backends.redis.RedisCache',
+#         'LOCATION': 'unix://var/run/redis/redis-server.sock?db=1',
+#         'KEY_PREFIX': 'portfolio',
+#         'TIMEOUT': 60 * 60 * 24,
+#     },
+#     # In theory, maybe useful only if "cache per site" is disabled
+#     'renditions': {
+#         'BACKEND': 'django.core.cache.backends.redis.RedisCache',
+#         'LOCATION': 'unix://var/run/redis/redis-server.sock?db=1',
+#         'KEY_PREFIX': 'portfolio-renditions',
+#         'TIMEOUT': 60 * 60 * 24,
+#     }
+# }
+# CACHE_MIDDLEWARE_SECONDS = 60 * 60 * 24
+# CACHE_MIDDLEWARE_ALIAS = 'default'
