@@ -11,9 +11,9 @@ COMPRESS_ENABLED = True
 # console + mail_admins. However, console is not enable if DEBUG = False!
 # That's why we append the 'django.server' handler, which is just a StreamHandler.
 # Then we capture the stdout/stderr to log it with the WSGI server instead.
-for logger in LOGGING['loggers'].values():
-    if 'django.server' not in logger['handlers']:
-        logger['handlers'] += ['django.server']
+for logger in LOGGING["loggers"].values():
+    if "django.server" not in logger["handlers"]:
+        logger["handlers"] += ["django.server"]
 
 try:
     from .local import *  # isort:skip

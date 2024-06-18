@@ -4,29 +4,29 @@ from .base import *
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ["*"]
 
 INSTALLED_APPS += [
-    'wagtail.contrib.styleguide',
-    'django_extensions',
-    'debug_toolbar',
+    "wagtail.contrib.styleguide",
+    "django_extensions",
+    "debug_toolbar",
 ]
 
 # @see https://django-debug-toolbar.readthedocs.io/en/latest/installation.html#configure-internal-ips
 hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
 INTERNAL_IPS = [ip[: ip.rfind(".")] + ".1" for ip in ips] + ["127.0.0.1", "10.0.2.2"]
 
-MIDDLEWARE.insert(0, 'debug_toolbar.middleware.DebugToolbarMiddleware')
+MIDDLEWARE.insert(0, "debug_toolbar.middleware.DebugToolbarMiddleware")
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
-for logger in LOGGING['loggers'].values():
-    logger['handlers'] = ['console']
-    logger['level'] = 'DEBUG'
+for logger in LOGGING["loggers"].values():
+    logger["handlers"] = ["console"]
+    logger["level"] = "DEBUG"
 
 AUTH_PASSWORD_VALIDATORS = []
 
-WAGTAILADMIN_BASE_URL = 'http://127.0.0.1:8000'
+WAGTAILADMIN_BASE_URL = "http://127.0.0.1:8000"
 
 try:
     from .local import *

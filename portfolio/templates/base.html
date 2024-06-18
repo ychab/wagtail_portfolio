@@ -29,11 +29,11 @@
         {# Compress CSS #}
         {% compress css file portfolio %}
         <!-- Bootstrap core CSS -->
-        <link href="{% static 'agency/vendor/bootstrap/css/bootstrap.css' %}" rel="stylesheet">
+            <link href="{% static 'agency/vendor/bootstrap/css/bootstrap.css' %}" rel="stylesheet">
         <!-- Custom fonts for this template -->
-        <link href="{% static 'agency/vendor/fontawesome-free/css/all.css' %}" rel="stylesheet" type="text/css">
+            <link href="{% static 'agency/vendor/fontawesome-free/css/all.css' %}" rel="stylesheet" type="text/css">
         <!-- Custom styles for this template -->
-        <link href="{% static 'agency/css/agency.css' %}" rel="stylesheet">
+            <link href="{% static 'agency/css/agency.css' %}" rel="stylesheet">
         {% endcompress %}
     </head>
 
@@ -41,7 +41,7 @@
 
         <!-- Navigation -->
         {% block navbar %}
-        {% include 'navbar.html' %}
+            {% include 'navbar.html' %}
         {% endblock %}
 
         {% wagtailuserbar %}
@@ -50,7 +50,7 @@
 
         <!-- Footer -->
         {% block footer %}
-        {% include 'footer.html' %}
+            {% include 'footer.html' %}
         {% endblock %}
 
         <!-- Django catalog -->
@@ -58,61 +58,61 @@
         {# Compress JS #}
         {% compress js file folioblog-contrib %}
         <!-- Bootstrap core JavaScript -->
-        <script src="{% static 'agency/vendor/jquery/jquery.js' %}"></script>
-        <script src="{% static 'agency/vendor/bootstrap/js/bootstrap.bundle.js' %}"></script>
+            <script src="{% static 'agency/vendor/jquery/jquery.js' %}"></script>
+            <script src="{% static 'agency/vendor/bootstrap/js/bootstrap.bundle.js' %}"></script>
         <!-- Plugin JavaScript -->
-        <script src="{% static 'agency/vendor/jquery-easing/jquery.easing.js' %}"></script>
+            <script src="{% static 'agency/vendor/jquery-easing/jquery.easing.js' %}"></script>
         <!-- Contact form JavaScript -->
-        <script src="{% static 'agency/js/jqBootstrapValidation.js' %}"></script>
-        <script src="{% static 'agency/js/contact_me.js' %}"></script>
+            <script src="{% static 'agency/js/jqBootstrapValidation.js' %}"></script>
+            <script src="{% static 'agency/js/contact_me.js' %}"></script>
         <!-- Custom scripts for this template -->
-        <script src="{% static 'agency/js/agency.js' %}"></script>
+            <script src="{% static 'agency/js/agency.js' %}"></script>
         {% endcompress %}
 
         <!-- Google Analytics -->
         {% with ga_id=settings.core.PortfolioSettings.google_analytics_id %}
-        <script async src="https://www.googletagmanager.com/gtag/js?id={{ ga_id }}"></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '{{ ga_id }}');
-        </script>
+            <script async src="https://www.googletagmanager.com/gtag/js?id={{ ga_id }}"></script>
+            <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '{{ ga_id }}');
+            </script>
         {% endwith %}
 
         <!-- Local Business -->
         {% with psettings=settings.core.PortfolioSettings %}
             <script type="application/ld+json">
-            {
-                "@context": "http://schema.org",
-                "@type": "LocalBusiness",
-                "name": "{{ self.get_site.site_name }}",
-                "brand": "{{ psettings.lb_brand|default:"" }}",
-                "logo": "{% static 'agency/img/logo.png' %}",
-                "description": "{{ psettings.seo_description|default:"" }}",
-                "url": "{{ base_url }}",
-                {% if psettings.lb_image %}
-                {% image psettings.lb_image width-400 as lb_image %}
-                "image": "{{ lb_image.url }}",
-                {% endif %}
-                {% if psettings.email %}
-                "email": "mailto:{{ psettings.email }}",
-                {% endif %}
-                "telephone": "{{ psettings.phone|default:"" }}",
-                "openingHours": "{{ psettings.lb_opening_hours|default:"" }}",
-                {% if settings.core.PortfolioSettings.lb_polygon %}
-                "areaServed": {
-                    "@type": "GeoShape",
-                    "polygon": "{{ settings.core.PortfolioSettings.lb_polygon }}",
-                },
-                {% endif %}
-                "sameAs": [
-                    "{{ settings.core.PortfolioSettings.facebook_url|default:"" }}",
-                    "{{ settings.core.PortfolioSettings.twitter_url|default:"" }}",
-                    "{{ settings.core.PortfolioSettings.google_plus_url|default:"" }}"
-                ]
-            }
-        </script>
+                {
+                    "@context": "http://schema.org",
+                    "@type": "LocalBusiness",
+                    "name": "{{ self.get_site.site_name }}",
+                    "brand": "{{ psettings.lb_brand|default:"" }}",
+                    "logo": "{% static 'agency/img/logo.png' %}",
+                    "description": "{{ psettings.seo_description|default:"" }}",
+                    "url": "{{ base_url }}",
+                    {% if psettings.lb_image %}
+                        {% image psettings.lb_image width-400 as lb_image %}
+                        "image": "{{ lb_image.url }}",
+                    {% endif %}
+                    {% if psettings.email %}
+                        "email": "mailto:{{ psettings.email }}",
+                    {% endif %}
+                    "telephone": "{{ psettings.phone|default:"" }}",
+                    "openingHours": "{{ psettings.lb_opening_hours|default:"" }}",
+                    {% if settings.core.PortfolioSettings.lb_polygon %}
+                        "areaServed": {
+                            "@type": "GeoShape",
+                            "polygon": "{{ settings.core.PortfolioSettings.lb_polygon }}",
+                        },
+                    {% endif %}
+                    "sameAs": [
+                        "{{ settings.core.PortfolioSettings.facebook_url|default:"" }}",
+                        "{{ settings.core.PortfolioSettings.twitter_url|default:"" }}",
+                        "{{ settings.core.PortfolioSettings.google_plus_url|default:"" }}"
+                    ]
+                }
+            </script>
         {% endwith %}
     </body>
 </html>

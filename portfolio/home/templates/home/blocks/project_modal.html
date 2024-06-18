@@ -21,10 +21,10 @@
 
                             <ul class="list-inline">
                                 {% if project.date %}
-                                <li>{% trans 'Date:' %} {{ project.date|date:"SHORT_DATE_FORMAT" }}</li>
+                                    <li>{% trans 'Date:' %} {{ project.date|date:"SHORT_DATE_FORMAT" }}</li>
                                 {% endif %}
                                 {% if project.client %}
-                                <li>{% trans 'Client:' %} {{ project.client }}</li>
+                                    <li>{% trans 'Client:' %} {{ project.client }}</li>
                                 {% endif %}
                             </ul>
 

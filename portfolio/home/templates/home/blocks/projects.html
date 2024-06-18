@@ -12,9 +12,9 @@
         </div>
 
         <div class="row">
-        {% for project in page.projects %}
-            {% include_block project with index=forloop.counter %}
-        {% endfor  %}
+            {% for project in page.projects %}
+                {% include_block project with index=forloop.counter %}
+            {% endfor  %}
         </div>
 
     </div>
@@ -22,5 +22,5 @@
 
 <!-- Portfolio Modals -->
 {% for project in page.projects %}
-{% include 'home/blocks/project_modal.html' with project=project.value index=forloop.counter %}
+    {% include 'home/blocks/project_modal.html' with project=project.value index=forloop.counter %}
 {% endfor %}

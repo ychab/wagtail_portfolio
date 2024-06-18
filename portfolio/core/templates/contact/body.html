@@ -1,21 +1,21 @@
 {% load i18n %}{% autoescape off %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-</head>
-<body>
-    <p>
-        {% blocktrans %}
-        Vous avez reçu un nouvel email de contact avec les informations suivantes:
-        <ul>
-        <li>nom: {{ name }}</li>
-        <li>email: {{ email }}</li>
-        <li>téléphone: {{ phone }}</li>
-        <li>message: {{ message }}</li>
-        </ul>
-        {% endblocktrans %}
-    </p>
-</body>
-</html>
+    <!DOCTYPE html>
+    <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+        </head>
+        <body>
+            <p>
+                {% blocktrans %}
+                    Vous avez reçu un nouvel email de contact avec les informations suivantes:
+                    <ul>
+                        <li>nom: {{ name }}</li>
+                        <li>email: {{ email }}</li>
+                        <li>téléphone: {{ phone }}</li>
+                        <li>message: {{ message }}</li>
+                    </ul>
+                {% endblocktrans %}
+            </p>
+        </body>
+    </html>
 {% endautoescape %}
