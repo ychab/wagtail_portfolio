@@ -35,5 +35,5 @@ except ImportError:
 
 if "CACHES" in locals():
     # Must be AFTER debug_toolbar middleware!
-    MIDDLEWARE.insert(1, "folioblog.core.middleware.AnonymousUpdateCacheMiddleware")
-    MIDDLEWARE.append("folioblog.core.middleware.AnonymousFetchCacheMiddleware")
+    MIDDLEWARE.insert(1, "django.middleware.cache.UpdateCacheMiddleware")
+    MIDDLEWARE.append("django.middleware.cache.FetchFromCacheMiddleware")

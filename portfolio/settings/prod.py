@@ -22,5 +22,5 @@ except ImportError:
 
 if "CACHES" in locals():
     # Cache per site: will cache all pages by their full GET url
-    MIDDLEWARE.insert(0, "folioblog.core.middleware.AnonymousUpdateCacheMiddleware")
-    MIDDLEWARE.append("folioblog.core.middleware.AnonymousFetchCacheMiddleware")
+    MIDDLEWARE.insert(0, "django.middleware.cache.UpdateCacheMiddleware")
+    MIDDLEWARE.append("django.middleware.cache.FetchFromCacheMiddleware")

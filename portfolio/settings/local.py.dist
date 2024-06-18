@@ -39,7 +39,7 @@ if redis_location:
         "default": {
             "BACKEND": "django.core.cache.backends.redis.RedisCache",
             "LOCATION": redis_location,
-            "KEY_PREFIX": os.getenv("PORTFOLIO_REDIS_KEY_PREFIX", "folioblog"),
+            "KEY_PREFIX": os.getenv("PORTFOLIO_REDIS_KEY_PREFIX", "portfolio"),
             "TIMEOUT": int(os.getenv("PORTFOLIO_REDIS_TIMEOUT", 86400)),
         },
     }
