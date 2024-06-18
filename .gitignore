@@ -5,7 +5,6 @@ __pycache__
 .coverage
 .tox
 /htmlcov
-/docs/_build/
 
 .python-version
 
@@ -21,5 +20,7 @@ local.py
 .idea
 .vscode
 .history
+
+.env
 
 roadmap.txt

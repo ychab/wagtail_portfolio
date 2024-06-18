@@ -1,19 +1,11 @@
 from .base import *
 
-SECURE_CONTENT_TYPE_NOSNIFF = True
-SECURE_BROWSER_XSS_FILTER = True
-X_FRAME_OPTIONS = 'DENY'
-
 # For Django back-office, enable SSL if needed
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 SECURE_SSL_REDIRECT = True  # Just in case, should be done by webserver instead
 
 COMPRESS_ENABLED = True
-
-# Cache per site: will cache all pages by their full GET url
-MIDDLEWARE.insert(0, 'django.middleware.cache.UpdateCacheMiddleware')  # Must be FIRST to be latest!
-MIDDLEWARE.append('django.middleware.cache.FetchFromCacheMiddleware')
 
 # By default, all children of 'django' logger will inherit the handlers
 # console + mail_admins. However, console is not enable if DEBUG = False!
@@ -27,3 +19,8 @@ try:
     from .local import *  # isort:skip
 except ImportError:
     pass  # NOQA
+
+if "CACHES" in locals():
+    # Cache per site: will cache all pages by their full GET url
+    MIDDLEWARE.insert(0, "folioblog.core.middleware.AnonymousUpdateCacheMiddleware")
+    MIDDLEWARE.append("folioblog.core.middleware.AnonymousFetchCacheMiddleware")

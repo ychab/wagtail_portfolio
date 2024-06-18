@@ -15,34 +15,36 @@ class CreateUserCommandTestCase(TestCase):
     def test_create_superuser(self):
         out = StringIO()
         extra_fields = {
-            'username': 'admin',
-            'password': 'foo',
-            'email': 'admin@example.com',
+            "username": "admin",
+            "password": "foo",
+            "email": "admin@example.com",
         }
-        call_command('createadmin', stdout=out, **extra_fields)
-        self.assertIn('Superuser created successfully.', out.getvalue())
+        call_command("createadmin", stdout=out, **extra_fields)
+        self.assertIn("Superuser created successfully.", out.getvalue())
 
-        user = User.objects.get(username=extra_fields['username'])
-        self.assertEqual(user.email, extra_fields['email'])
-        self.assertTrue(user.check_password(extra_fields['password']))
+        user = User.objects.get(username=extra_fields["username"])
+        self.assertTrue(user.is_staff)
         self.assertTrue(user.is_superuser)
+        self.assertEqual(user.email, extra_fields["email"])
+        self.assertTrue(user.check_password(extra_fields["password"]))
 
     def test_update_superuser(self):
         out = StringIO()
 
-        user = User.objects.create(
-            username='admin',
-            email='admin@example.com',
+        user = User.objects.create_superuser(
+            username="admin",
+            email="admin@example.com",
+            password="foo",
         )
-        new_passwd = 'bar'
+        new_passwd = "bar"
 
         extra_fields = {
-            'username': 'admin',
-            'password': new_passwd,
-            'update': True,
+            "password": new_passwd,
         }
-        call_command('createadmin', stdout=out, **extra_fields)
+        call_command("createadmin", stdout=out, **extra_fields)
         user.refresh_from_db()
 
+        self.assertTrue(user.is_staff)
+        self.assertTrue(user.is_superuser)
         self.assertTrue(user.check_password(new_passwd))
-        self.assertIn('Superuser updated successfully.', out.getvalue())
+        self.assertIn("Superuser updated successfully.", out.getvalue())

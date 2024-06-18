@@ -17,6 +17,8 @@ PASSWORD_HASHERS = (
 STATIC_ROOT = os.path.join(gettempdir(), 'portfolio', 'static')
 MEDIA_ROOT = os.path.join(gettempdir(), 'portfolio', 'media')
 
+WAGTAILADMIN_BASE_URL = "http://127.0.0.1:8000"
+
 try:
     from .local import *
 except ImportError:
