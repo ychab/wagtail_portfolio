@@ -1,10 +1,10 @@
 [build-system]
-requires = ["poetry-core"]
+requires = ["poetry-core>=1.8.3"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "portfolio"
-version = "1.1.0"
+version = "1.2.0"
 description = "A PortFolio website build with the CMS Wagtail"
 authors = ["Yannick Chabbert <yannick.chabbert.it@gmail.com>"]
 license = "MIT"
@@ -13,24 +13,35 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.10"
 psycopg2-binary = "^2.9.5"
-wagtail = "^4.1.1"
+wagtail = "^4.2"
 django-ipware = "^4.0.2"
 pyyaml = "^6.0"
-django-compressor = "^4.1"
-redis = "^4.3.4"
-hiredis = "^2.0.0"
+django-compressor = "^4.4"
+redis = "^5.0.1"
+hiredis = "^2.2.3"
 
 [tool.poetry.group.test.dependencies]
-isort = "^5.10.1"
-tblib = "^1.7.0"
-tox = "^3.27.1"
-coverage = {extras = ["toml"], version = "^6.5.0"}
-pylama = {extras = ["toml"], version = "^8.4.1"}
+tblib = "^3.0.0"
+tox = "^4.15.1"
+coverage = {extras = ["toml"], version = "^7.5.3"}
 
 [tool.poetry.group.dev.dependencies]
-django-extensions = "^3.2.1"
-django-debug-toolbar = "^3.7.0"
-pre-commit = "^2.20.0"
+django-extensions = "^3.2.3"
+django-debug-toolbar = "^4.1.0"
+pre-commit = "^3.7.1"
+pylama = {extras = ["toml"], version = "^8.4.1"}
+black = "^24.4.2"
+djhtml = "^3.0.6"
+isort = "^5.12.0"
+
+[tool.poetry.group.prod.dependencies]
+psycopg = {extras = ["c"], version = "^3.1.16"}
+gunicorn = "^22.0.0"
+
+[tool.black]
+line-length = 119
+target-version = ["py310"]
+extend-exclude = "/migrations/"
 
 [tool.pylama]
 skip = "*/.tox/*,*/migrations/*,*/settings/*,*/static/*"
@@ -43,10 +54,8 @@ max_line_length = 119
 complexity = 15
 
 [tool.isort]
-combine_as_imports = true
-multi_line_output = 5
-include_trailing_comma = true
-skip = ".tox,migrations,docs,media,static"
+profile = "black"
+skip = "migrations"
 sections = "FUTURE,STDLIB,DJANGO,WAGTAIL,THIRDPARTY,FIRSTPARTY,LOCALFOLDER"
 known_django = "django"
 known_wagtail = "wagtail"
