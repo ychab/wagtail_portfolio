@@ -2,7 +2,7 @@
 
 from django.db import migrations, models
 import django.db.models.deletion
-import wagtail.core.fields
+import wagtail.fields
 
 
 class Migration(migrations.Migration):
@@ -41,7 +41,7 @@ class Migration(migrations.Migration):
                 ('email', models.EmailField(blank=True, default='', help_text="L'adresse email affiché en pied de page.", max_length=254)),
                 ('phone', models.CharField(blank=True, default='', max_length=128)),
                 ('email_form', models.EmailField(blank=True, default='', help_text="L'adresse email de contact du formulaire.", max_length=254)),
-                ('timetable', wagtail.core.fields.RichTextField(blank=True)),
+                ('timetable', wagtail.fields.RichTextField(blank=True)),
                 ('site', models.OneToOneField(editable=False, on_delete=django.db.models.deletion.CASCADE, to='wagtailcore.Site')),
             ],
             options={

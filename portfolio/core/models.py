@@ -55,8 +55,8 @@ class PortfolioSettings(BaseSiteSetting):
     lb_polygon = models.CharField(
         verbose_name=_("Zone de couverture"),
         help_text=_(
-            "Au format polygone. Outil: https://www.doogal.co.uk/polylines.php. Exemple: -1.4585973651364839,47.24680912120602,0 -1.4531042010739839,47.24121534312366,0 -1.3267614276364839,47.83271445708654,0 -1.9969274432614839,47.86404914329155,0 -1.9831945331052339,47.29153808284894,0 -1.4585973651364839,47.24680912120602,0"
-        ),  # noqa
+            "Au format polygone. Outil: https://www.doogal.co.uk/polylines.php. Exemple: -1.4585973651364839,47.24680912120602,0 -1.4531042010739839,47.24121534312366,0 -1.3267614276364839,47.83271445708654,0 -1.9969274432614839,47.86404914329155,0 -1.9831945331052339,47.29153808284894,0 -1.4585973651364839,47.24680912120602,0"  # noqa
+        ),
         max_length=512,
         blank=True,
         default="",
@@ -103,7 +103,12 @@ class PortfolioSettings(BaseSiteSetting):
             heading=_("Google Analytics"),
         ),
         MultiFieldPanel(
-            [FieldPanel("lb_brand"), FieldPanel("lb_opening_hours"), FieldPanel("lb_polygon"), FieldPanel("lb_image")],
+            [
+                FieldPanel("lb_brand"),
+                FieldPanel("lb_opening_hours"),
+                FieldPanel("lb_polygon"),
+                FieldPanel("lb_image"),
+            ],
             heading=_("Local Business (Google)"),
         ),
     ]

@@ -6,7 +6,7 @@ from django.test import TestCase, override_settings
 from django.urls import reverse
 from django.utils import timezone
 
-from wagtail.core.models import Site
+from wagtail.models import Site
 
 from ..models import ContactFormSubmission, PortfolioSettings
 

@@ -2,8 +2,8 @@
 
 from django.db import migrations, models
 import django.db.models.deletion
-import wagtail.core.blocks
-import wagtail.core.fields
+import wagtail.blocks
+import wagtail.fields
 import wagtail.images.blocks
 
 
@@ -32,7 +32,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='homepage',
             name='about_text',
-            field=wagtail.core.fields.RichTextField(blank=True),
+            field=wagtail.fields.RichTextField(blank=True),
         ),
         migrations.AddField(
             model_name='homepage',
@@ -62,7 +62,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='homepage',
             name='projects',
-            field=wagtail.core.fields.StreamField([('project', wagtail.core.blocks.StructBlock([('name', wagtail.core.blocks.CharBlock(max_length=128)), ('subheading', wagtail.core.blocks.CharBlock(help_text='Sous-titre dans la vue grille', max_length=128, required=False)), ('intro', wagtail.core.blocks.CharBlock(help_text='Sous-titre dans la vue modal (grand écran)', max_length=255, required=False)), ('image', wagtail.images.blocks.ImageChooserBlock()), ('text', wagtail.core.blocks.TextBlock(required=False)), ('date', wagtail.core.blocks.DateBlock(required=False)), ('client', wagtail.core.blocks.CharBlock(required=False))]))], blank=True, null=True),
+            field=wagtail.fields.StreamField([('project', wagtail.blocks.StructBlock([('name', wagtail.blocks.CharBlock(max_length=128)), ('subheading', wagtail.blocks.CharBlock(help_text='Sous-titre dans la vue grille', max_length=128, required=False)), ('intro', wagtail.blocks.CharBlock(help_text='Sous-titre dans la vue modal (grand écran)', max_length=255, required=False)), ('image', wagtail.images.blocks.ImageChooserBlock()), ('text', wagtail.blocks.TextBlock(required=False)), ('date', wagtail.blocks.DateBlock(required=False)), ('client', wagtail.blocks.CharBlock(required=False))]))], blank=True, null=True),
         ),
         migrations.AddField(
             model_name='homepage',
@@ -72,7 +72,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='homepage',
             name='services',
-            field=wagtail.core.fields.StreamField([('service', wagtail.core.blocks.StructBlock([('name', wagtail.core.blocks.CharBlock(max_length=128)), ('text', wagtail.core.blocks.TextBlock()), ('icon', wagtail.core.blocks.CharBlock(max_length=128))]))], blank=True, null=True),
+            field=wagtail.fields.StreamField([('service', wagtail.blocks.StructBlock([('name', wagtail.blocks.CharBlock(max_length=128)), ('text', wagtail.blocks.TextBlock()), ('icon', wagtail.blocks.CharBlock(max_length=128))]))], blank=True, null=True),
         ),
         migrations.AddField(
             model_name='homepage',
@@ -82,7 +82,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='homepage',
             name='team_members',
-            field=wagtail.core.fields.StreamField([('member', wagtail.core.blocks.StructBlock([('name', wagtail.core.blocks.CharBlock()), ('job', wagtail.core.blocks.CharBlock(required=False)), ('photo', wagtail.images.blocks.ImageChooserBlock())]))], blank=True, null=True),
+            field=wagtail.fields.StreamField([('member', wagtail.blocks.StructBlock([('name', wagtail.blocks.CharBlock()), ('job', wagtail.blocks.CharBlock(required=False)), ('photo', wagtail.images.blocks.ImageChooserBlock())]))], blank=True, null=True),
         ),
         migrations.AddField(
             model_name='homepage',
