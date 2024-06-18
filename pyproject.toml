@@ -12,11 +12,11 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"
-psycopg2-binary = "^2.9.5"
-wagtail = "^4.2"
-django-ipware = "^4.0.2"
+wagtail = "^6.1.2"
+django-ipware = "^7.0.1"
 pyyaml = "^6.0"
 django-compressor = "^4.4"
+psycopg = "^3.1.9"
 redis = "^5.0.1"
 hiredis = "^2.2.3"
 

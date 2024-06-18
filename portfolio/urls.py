@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.contrib import admin
 from django.urls import include, path
 from django.views.i18n import JavaScriptCatalog
 
@@ -13,6 +14,7 @@ urlpatterns = [
     path("admin/", include(wagtailadmin_urls)),
     path("documents/", include(wagtaildocs_urls)),
     path("contact/", ContactView.as_view(), name="contact"),
+    path("dj-admin/", admin.site.urls),
 ]
 
 if settings.DEBUG:  # pragma: no cover

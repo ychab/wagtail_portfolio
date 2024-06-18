@@ -111,7 +111,6 @@ class HomePage(Page):
         ServicesBlock(),
         null=True,
         blank=True,
-        use_json_field=True,
     )
 
     # Project
@@ -131,7 +130,6 @@ class HomePage(Page):
         ProjectsBlock(),
         null=True,
         blank=True,
-        use_json_field=True,
     )
 
     # About
@@ -164,7 +162,6 @@ class HomePage(Page):
         TeamBlock(),
         null=True,
         blank=True,
-        use_json_field=True,
     )
     team_text = models.CharField(
         verbose_name=_("Texte"),
