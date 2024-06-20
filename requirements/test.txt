@@ -199,18 +199,18 @@ django-treebeard==4.7.1 ; python_version >= "3.10" and python_version < "4.0" \
 django==5.0.6 ; python_version >= "3.10" and python_version < "4.0" \
     --hash=sha256:8363ac062bb4ef7c3f12d078f6fa5d154031d129a15170a1066412af49d30905 \
     --hash=sha256:ff1b61005004e476e0aeea47c7f79b85864c70124030e95146315396f1e7951f
-djangorestframework==3.15.1 ; python_version >= "3.10" and python_version < "4.0" \
-    --hash=sha256:3ccc0475bce968608cf30d07fb17d8e52d1d7fc8bfe779c905463200750cbca6 \
-    --hash=sha256:f88fad74183dfc7144b2756d0d2ac716ea5b4c7c9840995ac3bfd8ec034333c1
+djangorestframework==3.15.2 ; python_version >= "3.10" and python_version < "4.0" \
+    --hash=sha256:2b8871b062ba1aefc2de01f773875441a961fefbf79f5eed1e32b2f096944b20 \
+    --hash=sha256:36fe88cd2d6c6bec23dca9804bab2ba5517a8bb9d8f47ebc68981b56840107ad
 draftjs-exporter==5.0.0 ; python_version >= "3.10" and python_version < "4.0" \
     --hash=sha256:2efee45d4bb4c0aaacc3e5ea2983a29a29381e02037f3f92a6b12706d7b87e1e \
     --hash=sha256:8cb9d2d51284233decfe274802f1c53e257158c62b9f53ed2399de3fa80ac561
 et-xmlfile==1.1.0 ; python_version >= "3.10" and python_version < "4.0" \
     --hash=sha256:8eb9e2bc2f8c97e37a2dc85a09ecdcdec9d8a396530a6d5a33b30b9a92da0c5c \
     --hash=sha256:a2ba85d1d6a74ef63837eed693bcb89c3f752169b0e3e7ae5b16ca5e1b3deada
-filelock==3.15.1 ; python_version >= "3.10" and python_version < "4.0" \
-    --hash=sha256:58a2549afdf9e02e10720eaa4d4470f56386d7a6f72edd7d0596337af8ed7ad8 \
-    --hash=sha256:71b3102950e91dfc1bb4209b64be4dc8854f40e5f534428d8684f953ac847fac
+filelock==3.15.3 ; python_version >= "3.10" and python_version < "4.0" \
+    --hash=sha256:0151273e5b5d6cf753a61ec83b3a9b7d8821c39ae9af9d7ecf2f9e2f17404103 \
+    --hash=sha256:e1199bf5194a2277273dacd50269f0d87d0682088a3c561c15674ea9005d8635
 filetype==1.2.0 ; python_version >= "3.10" and python_version < "4.0" \
     --hash=sha256:66b56cd6474bf41d8c54660347d37afcc3f7d1970648de365c102ef77548aadb \
     --hash=sha256:7ce71b6880181241cf7ac8697a2f1eb6a8bd9b429f7ad6d27b8db9ba5f1c2d25
