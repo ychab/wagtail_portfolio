@@ -18,6 +18,7 @@ confirm:
 
 deps:
 	poetry show --outdated
+	npm outdated
 
 poetry:
 	poetry update
@@ -25,6 +26,10 @@ poetry:
 	poetry export -f requirements.txt --with prod -o requirements/prod.txt
 	poetry export -f requirements.txt --with test -o requirements/test.txt
 	poetry export -f requirements.txt --with test,dev -o requirements/dev.txt
+
+npm:
+	npm update
+	npm run dist
 
 precommit:
 	pre-commit autoupdate
