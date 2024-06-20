@@ -14,7 +14,6 @@ urlpatterns = [
     path("admin/", include(wagtailadmin_urls)),
     path("documents/", include(wagtaildocs_urls)),
     path("contact/", ContactView.as_view(), name="contact"),
-    path("dj-admin/", admin.site.urls),
 ]
 
 if settings.DEBUG:  # pragma: no cover
