@@ -14,6 +14,8 @@ node_modules
 !/static/README.md
 /media/*
 !/media/README.md
+/portfolio/static/*
+!/portfolio/static/portfolio
 
 local.py
 
