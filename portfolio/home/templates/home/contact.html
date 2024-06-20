@@ -1,57 +1,57 @@
 {% load i18n %}
-<section id="contact">
+<section class="page-section" id="contact">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <h2 class="section-heading text-uppercase">{% trans 'Contact' %}</h2>
-                {% if page.contact_subheading %}
-                    <h3 class="section-subheading text-muted">{{ page.contact_subheading }}</h3>
-                {% endif %}
-            </div>
+        <div class="text-center">
+            <h2 class="section-heading text-uppercase">{% trans 'Contact' %}</h2>
+            {% if page.contact_subheading %}
+                <h3 class="section-subheading text-muted">{{ page.contact_subheading }}</h3>
+            {% endif %}
         </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <form id="contactForm" name="sentMessage" novalidate="novalidate">{% csrf_token %}
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="d-none" for="name">{% trans 'Votre nom' %}</label>
-                                <input class="form-control" id="name" type="text" placeholder="{% trans 'Votre nom *' %}"
-                                       required="required" data-validation-required-message="{% trans 'Merci de saisir votre nom.' %}">
-                                <p class="help-block text-danger"></p>
-                            </div>
-                            <div class="form-group">
-                                <label class="d-none" for="email">{% trans 'Votre email' %}</label>
-                                <input class="form-control" id="email" type="email" placeholder="{% trans 'Votre email *' %}"
-                                       required="required"
-                                       data-validation-required-message="{% trans 'Merci de saisir votre adresse email.' %}">
-                                <p class="help-block text-danger"></p>
-                            </div>
-                            <div class="form-group">
-                                <label class="d-none" for="phone">{% trans 'Votre téléphone' %}</label>
-                                <input class="form-control" id="phone" type="tel" placeholder="{% trans 'Votre téléphone' %}">
-                                <p class="help-block text-danger"></p>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="d-none" for="message">{% trans 'Votre message' %}</label>
-                                <textarea class="form-control" id="message" placeholder="{% trans 'Votre message *' %}"
-                                          required="required"
-                                          data-validation-required-message="{% trans 'Merci de saisir votre message.' %}"></textarea>
-                                <p class="help-block text-danger"></p>
-                            </div>
-                        </div>
-                        <div class="clearfix"></div>
-                        <div class="col-lg-12 text-center">
-                            <div id="success"></div>
-                            <button id="sendMessageButton" class="btn btn-primary btn-xl text-uppercase" type="submit">
-                                {% trans 'Envoyer le message' %}
-                            </button>
-                        </div>
+
+        <form id="contactForm" method="post" action="{% url 'contact' %}" novalidate="novalidate">{% csrf_token %}
+            <div class="row align-items-stretch mb-5">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="name" name="name" placeholder="{% trans 'Votre nom *' %}">
+                        <div id="name-feedback" class="invalid-feedback"></div>
                     </div>
-                </form>
+                    <div class="form-group">
+                        <input type="email" class="form-control" id="email" name="email" placeholder="{% trans 'Votre email *' %}">
+                        <div id="email-feedback" class="invalid-feedback"></div>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" class="form-control" id="phone" name="phone" placeholder="{% trans 'Votre téléphone' %}">
+                        <div id="phone-feedback" class="invalid-feedback"></div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group form-group-textarea mb-md-0">
+                        <textarea class="form-control" id="message" name="message" placeholder="{% trans 'Votre message *' %}"></textarea>
+                        <div id="message-feedback" class="invalid-feedback"></div>
+                    </div>
+                </div>
             </div>
-        </div>
+
+            <!-- Submit success message-->
+            <div class="d-none" id="submitSuccessMessage">
+                <div class="text-center text-white mb-3">
+                    <div class="fw-bolder">{% trans "Message envoyé avec succès." %}</div>
+                </div>
+            </div>
+
+            <!-- Submit error message-->
+            <div class="d-none" id="submitErrorMessage">
+                <div class="text-center text-danger mb-3">
+                    {% trans "Une erreur a été rencontrée..." %}
+                </div>
+            </div>
+
+            <div class="text-center">
+                <button class="btn btn-primary btn-xl text-uppercase" id="submitButton" type="submit">
+                    {% trans "Envoyer le message" %}
+                </button>
+            </div>
+        </form>
     </div>
 </section>

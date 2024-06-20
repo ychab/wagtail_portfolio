@@ -3,6 +3,7 @@ import logging
 
 from django.conf import settings
 from django.core.mail import send_mail
+from django.http import JsonResponse
 from django.template import loader
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
@@ -23,13 +24,20 @@ class ContactView(FormView):
     template_name = "home/contact.html"
     success_url = "/"
 
+    def form_invalid(self, form):
+        return JsonResponse(
+            data=form.errors.get_json_data(escape_html=True),
+            status=400,
+        )
+
     def form_valid(self, form):
-        ret = super().form_valid(form)
+        super().form_valid(form)
 
         ip_address, is_routable = get_client_ip(self.request)
         if ip_address in settings.CONTACT_FORM_IP_ADDRESS_BLACKLIST:
-            logger.info("The following blacklisted IP has been refused: {}".format(ip_address))
-            return ret
+            msg = f"The following blacklisted IP has been refused: {ip_address}"
+            logger.info(msg)
+            return JsonResponse(data={"msg": msg}, status=400)
 
         if ip_address not in settings.CONTACT_FORM_IP_ADDRESS_WHITELIST:
             filters = {
@@ -38,8 +46,9 @@ class ContactView(FormView):
             }
             submissions = list(ContactFormSubmission.objects.filter(**filters))
             if submissions and len(submissions) > settings.CONTACT_FORM_MAX_ATTEMPT:
-                logger.info("The following IP has exceed the max retry in min delay: {}".format(ip_address))
-                return ret
+                msg = f"The following IP has exceed the max retry in min delay: {ip_address}"
+                logger.info(msg)
+                return JsonResponse(data={"msg": msg}, status=400)
 
         current_site = Site.find_for_request(self.request)
         portfolio_settings = PortfolioSettings.for_site(current_site)
@@ -72,4 +81,4 @@ class ContactView(FormView):
             ip_address=get_client_ip(self.request)[0],
         )
 
-        return ret
+        return JsonResponse({"success": True})

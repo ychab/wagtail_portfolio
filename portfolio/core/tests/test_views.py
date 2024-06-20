@@ -41,17 +41,18 @@ class ContactViewTestCase(TestCase):
         ContactFormSubmission.objects.all().delete()
 
     def test_require_field(self):
-        response = self.client.post(self.url, data={}, follow=True)
-        self.assertIn("name", response.context_data["form"].errors)
-        self.assertIn("email", response.context_data["form"].errors)
-        self.assertIn("message", response.context_data["form"].errors)
+        response = self.client.post(self.url, data={})
+        self.assertEqual(response.status_code, 400)
+        content = response.json()
+        self.assertIn("name", content)
+        self.assertIn("email", content)
+        self.assertIn("message", content)
 
     @mock.patch("portfolio.core.views.get_client_ip", return_value=(BLACKLIST_IP, False))
     def test_blacklist(self, mock_client_ip):
         with self.assertLogs("portfolio.contact", "INFO"):
-            self.client.post(
+            response = self.client.post(
                 self.url,
-                follow=True,
                 data={
                     "name": "test",
                     "email": "test+1@example.com",
@@ -59,6 +60,7 @@ class ContactViewTestCase(TestCase):
                     "message": "blah blah blah",
                 },
             )
+        self.assertEqual(response.status_code, 400)
         self.assertEqual(ContactFormSubmission.objects.all().count(), 0)
 
     @mock.patch("portfolio.core.views.get_client_ip", return_value=(WHITELIST_IP, False))
@@ -75,7 +77,8 @@ class ContactViewTestCase(TestCase):
         for i in range(0, MAX_ATTEMPT + 1):
             ContactFormSubmission.objects.create(ip_address=WHITELIST_IP, **data)
 
-        self.client.post(self.url, follow=True, data=data)
+        response = self.client.post(self.url, data=data)
+        self.assertEqual(response.status_code, 200)
         self.assertEqual(ContactFormSubmission.objects.all().count(), MAX_ATTEMPT + 2)
 
     @mock.patch("portfolio.core.views.get_client_ip", return_value=(LAMBDA_IP, False))
@@ -90,8 +93,9 @@ class ContactViewTestCase(TestCase):
             ContactFormSubmission.objects.create(ip_address=LAMBDA_IP, **data)
 
         with self.assertLogs("portfolio.contact", "INFO"):
-            self.client.post(self.url, follow=True, data=data)
+            response = self.client.post(self.url, data=data)
 
+        self.assertEqual(response.status_code, 400)
         self.assertEqual(ContactFormSubmission.objects.all().count(), MAX_ATTEMPT + 1)
 
     @mock.patch("portfolio.core.views.get_client_ip", return_value=(LAMBDA_IP, False))
@@ -111,7 +115,8 @@ class ContactViewTestCase(TestCase):
             for i in range(0, MAX_ATTEMPT + 1):
                 ContactFormSubmission.objects.create(ip_address=LAMBDA_IP, **data)
 
-        self.client.post(self.url, follow=True, data=data)
+        response = self.client.post(self.url, data=data)
+        self.assertEqual(response.status_code, 200)
         self.assertEqual(ContactFormSubmission.objects.all().count(), MAX_ATTEMPT + 2)
 
     def test_send_mail(self):
@@ -131,7 +136,9 @@ class ContactViewTestCase(TestCase):
             "phone": "02 40 40 40 40",
             "message": "blah blah blah",
         }
-        self.client.post(self.url, follow=True, data=data)
+        response = self.client.post(self.url, data=data)
+        self.assertEqual(response.status_code, 200)
+
         submission = ContactFormSubmission.objects.first()
         self.assertEqual(data["name"], submission.name)
         self.assertEqual(data["email"], submission.email)

@@ -8,8 +8,6 @@ from wagtail.fields import RichTextField, StreamField
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.models import Page
 
-from portfolio.core.forms import ContactForm
-
 
 class ServiceBlock(blocks.StructBlock):
     name = blocks.CharBlock(max_length=128)
@@ -231,8 +229,7 @@ class HomePage(Page):
         db_table = "portfolio_homepage"
         verbose_name = _("Page d'accueil")
 
-    def get_context(self, request, *args, **kwargs):
+    def get_context(self, request, *args, **kwargs):  # pragma: no cover
         context = super().get_context(request, *args, **kwargs)
         context["base_url"] = settings.WAGTAILADMIN_BASE_URL
-        context["contact_form"] = ContactForm()
         return context
