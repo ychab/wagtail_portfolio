@@ -1,18 +1,19 @@
 {% load wagtailimages_tags %}
 
-<div class="col-md-4 col-sm-6 portfolio-item">
-
-    <a class="portfolio-link" data-toggle="modal" href="#portfolioModal{{ index }}">
-        <div class="portfolio-hover">
-            <div class="portfolio-hover-content">
-                <i class="fas fa-plus fa-3x"></i>
+<div class="col-lg-4 col-sm-6 mb-4">
+    <div class="portfolio-item">
+        <a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal{{ index }}">
+            <div class="portfolio-hover">
+                <div class="portfolio-hover-content">
+                    <i class="fas fa-plus fa-3x"></i>
+                </div>
             </div>
-        </div>
-        {% image value.image fill-350x265 format-webp class="img-fluid" %}
-    </a>
+            {% image value.image fill-600x450 format-webp class="img-fluid" %}
+        </a>
 
-    <div class="portfolio-caption">
-        <h4>{{ value.name }}</h4>
-        <p class="text-muted">{{ value.subheading }}</p>
+        <div class="portfolio-caption">
+            <div class="portfolio-caption-heading">{{ value.name }}</div>
+            <div class="portfolio-caption-subheading text-muted">{{ value.subheading }}</div>
+        </div>
     </div>
 </div>

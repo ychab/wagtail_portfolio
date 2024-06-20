@@ -1,16 +1,14 @@
-{% load i18n wagtailimages_tags %}
+{% load i18n static wagtailimages_tags %}
 
 <div class="portfolio-modal modal fade" id="portfolioModal{{ index }}" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="close-modal" data-dismiss="modal">
-                <div class="lr">
-                    <div class="rl"></div>
-                </div>
+                <img src="{% static 'agency/assets/img/close-icon.svg' %}" alt="Close modal" />
             </div>
             <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 mx-auto">
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
                         <div class="modal-body">
 
                             <h2 class="text-uppercase">{{ project.name }}</h2>
@@ -21,15 +19,15 @@
 
                             <ul class="list-inline">
                                 {% if project.date %}
-                                    <li>{% trans 'Date:' %} {{ project.date|date:"SHORT_DATE_FORMAT" }}</li>
+                                    <li><strong>{% trans 'Date:' %}</strong> {{ project.date|date:"SHORT_DATE_FORMAT" }}</li>
                                 {% endif %}
                                 {% if project.client %}
-                                    <li>{% trans 'Client:' %} {{ project.client }}</li>
+                                    <li><strong>{% trans 'Client:' %}</strong> {{ project.client }}</li>
                                 {% endif %}
                             </ul>
 
-                            <button class="btn btn-primary" data-dismiss="modal" type="button">
-                                <i class="fas fa-times"></i>
+                            <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
+                                <i class="fas fa-xmark me-1"></i>
                                 {% trans 'Fermer' %}
                             </button>
 

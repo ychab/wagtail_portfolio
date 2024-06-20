@@ -19,21 +19,14 @@
                 {% endwith %}
             {% endblock %}
         </title>
-        <link href="{% static 'agency/img/favicon.ico' %}" rel="shortcut icon" type="image/vnd.microsoft.icon">
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-        <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
-        <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet'
-              type='text/css'>
-        <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+        {# @TODO - add a settings for this! #}
+        <link href="{% static 'portfolio/assets/img/favicon.ico' %}" rel="icon" type="image/x-icon">
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
         {# Compress CSS #}
         {% compress css file portfolio %}
-        <!-- Bootstrap core CSS -->
-            <link href="{% static 'agency/vendor/bootstrap/css/bootstrap.css' %}" rel="stylesheet">
-        <!-- Custom fonts for this template -->
-            <link href="{% static 'agency/vendor/fontawesome-free/css/all.css' %}" rel="stylesheet" type="text/css">
-        <!-- Custom styles for this template -->
-            <link href="{% static 'agency/css/agency.css' %}" rel="stylesheet">
+            <link href="{% static 'agency/css/styles.css' %}" rel="stylesheet">
         {% endcompress %}
     </head>
 
@@ -57,16 +50,10 @@
         <script type="text/javascript" src="{% url 'javascript-catalog' %}"></script>
         {# Compress JS #}
         {% compress js file portfolio-contrib %}
-        <!-- Bootstrap core JavaScript -->
-            <script src="{% static 'agency/vendor/jquery/jquery.js' %}"></script>
-            <script src="{% static 'agency/vendor/bootstrap/js/bootstrap.bundle.js' %}"></script>
-        <!-- Plugin JavaScript -->
-            <script src="{% static 'agency/vendor/jquery-easing/jquery.easing.js' %}"></script>
-        <!-- Contact form JavaScript -->
-            <script src="{% static 'agency/js/jqBootstrapValidation.js' %}"></script>
-            <script src="{% static 'agency/js/contact_me.js' %}"></script>
-        <!-- Custom scripts for this template -->
-            <script src="{% static 'agency/js/agency.js' %}"></script>
+            <script src="{% static 'bootstrap/js/bootstrap.bundle.js' %}"></script>
+            <script src="{% static 'fontawesome/js/all.js' %}"></script>
+            <script src="{% static 'agency/js/scripts.js' %}"></script>
+            <script src="{% static 'portfolio/js/contact.js' %}"></script>
         {% endcompress %}
 
         <!-- Google Analytics -->
