@@ -19,6 +19,8 @@ class PortfolioSettings(BaseSiteSetting):
         blank=True,
         default="",
     )
+    favicon = models.ImageField(upload_to="icons", blank=True, default="")
+    logo = models.ImageField(upload_to="icons", blank=True, default="")
 
     seo_keywords = models.CharField(
         verbose_name=_("Mots clés SEO"),
@@ -92,6 +94,8 @@ class PortfolioSettings(BaseSiteSetting):
 
     global_panels = [
         FieldPanel("navbar_title"),
+        FieldPanel("favicon"),
+        FieldPanel("logo"),
     ]
     seo_panels = [
         FieldPanel("seo_keywords"),

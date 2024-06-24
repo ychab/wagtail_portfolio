@@ -1,4 +1,4 @@
-{% load i18n static wagtailuserbar wagtailimages_tags compress %}
+{% load i18n static wagtailcore_tags wagtailuserbar wagtailimages_tags compress %}
 {% get_current_language as LANGUAGE_CODE %}
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_CODE|language_bidi %}dir="rtl"{% endif %}>
@@ -19,8 +19,11 @@
                 {% endwith %}
             {% endblock %}
         </title>
-        {# @TODO - add a settings for this! #}
-        <link href="{% static 'portfolio/assets/img/favicon.ico' %}" rel="icon" type="image/x-icon">
+        {% if settings.core.PortfolioSettings.favicon %}
+            <link href="{% get_media_prefix %}{{ settings.core.PortfolioSettings.favicon }}" rel="icon" type="image/x-icon">
+        {% else %}
+            <link href="{% static 'portfolio/assets/img/favicon.ico' %}" rel="icon" type="image/x-icon">
+        {% endif %}
         <!-- Google fonts-->
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
         <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />

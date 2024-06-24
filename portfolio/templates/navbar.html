@@ -1,11 +1,14 @@
-{% load i18n static %}
+{% load i18n static wagtailcore_tags %}
 
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
     <div class="container">
 
         <a class="navbar-brand" href="#page-top">
-             {# @TODO - replace this with a settings instead #}
-            <img src="{% static 'portfolio/assets/img/logo.png' %}" alt="logo" class="logo" />
+            {% if settings.core.PortfolioSettings.logo %}
+                <img src="{% get_media_prefix %}{{ settings.core.PortfolioSettings.logo }}" alt="logo" class="logo" />
+            {% else %}
+                <img src="{% static 'portfolio/assets/img/logo.png' %}" alt="logo" class="logo" />
+            {% endif %}
             {{ settings.core.PortfolioSettings.navbar_title|default:"Portfolio"}}
         </a>
 
