@@ -90,6 +90,9 @@ class PortfolioSettings(BaseSiteSetting):
         default="",
     )
 
+    cookie_title = models.CharField(max_length=255, blank=True, default="")
+    cookie_text = models.CharField(max_length=2048, blank=True, default="")
+
     timetable = RichTextField(blank=True)
 
     global_panels = [
@@ -128,6 +131,10 @@ class PortfolioSettings(BaseSiteSetting):
         FieldPanel("phone"),
         FieldPanel("email_form"),
     ]
+    cookie_panels = [
+        FieldPanel("cookie_title"),
+        FieldPanel("cookie_text"),
+    ]
     timetable_panels = [
         FieldPanel("timetable"),
     ]
@@ -138,6 +145,7 @@ class PortfolioSettings(BaseSiteSetting):
             ObjectList(seo_panels, heading=_("SEO")),
             ObjectList(social_panels, heading=_("Réseaux sociaux")),
             ObjectList(contact_panels, heading=_("Contact")),
+            ObjectList(cookie_panels, heading=_("Cookie banner")),
             ObjectList(timetable_panels, heading=_("Horaires")),
         ]
     )

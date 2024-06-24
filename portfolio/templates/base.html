@@ -1,5 +1,6 @@
-{% load i18n static wagtailcore_tags wagtailuserbar wagtailimages_tags compress %}
+{% load i18n static wagtailcore_tags wagtailuserbar wagtailimages_tags compress portfolio %}
 {% get_current_language as LANGUAGE_CODE %}
+{% wagtail_site as current_site %}
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_CODE|language_bidi %}dir="rtl"{% endif %}>
     <head>
@@ -13,12 +14,9 @@
             {% block title %}
                 {% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}
             {% endblock %}
-            {% block title_suffix %}
-                {% with self.get_site.site_name as site_name %}
-                    {% if site_name %}- {{ site_name }}{% endif %}
-                {% endwith %}
-            {% endblock %}
+            {% block title_suffix %}- {{ current_site.site_name }}{% endblock %}
         </title>
+        <!-- Favicon -->
         {% if settings.core.PortfolioSettings.favicon %}
             <link href="{% get_media_prefix %}{{ settings.core.PortfolioSettings.favicon }}" rel="icon" type="image/x-icon">
         {% else %}
@@ -30,20 +28,20 @@
         {# Compress CSS #}
         {% compress css file portfolio %}
             <link href="{% static 'agency/css/styles.css' %}" rel="stylesheet">
+            <link href="{% static 'portfolio/css/styles.css' %}" rel="stylesheet">
         {% endcompress %}
     </head>
 
     <body id="page-top">
-
+        <!-- Cookie banner -->
+        {% cookies_banner %}
+        {% wagtailuserbar %}
         <!-- Navigation -->
         {% block navbar %}
             {% include 'navbar.html' %}
         {% endblock %}
-
-        {% wagtailuserbar %}
-
+        <!-- Main content -->
         {% block content %}{% endblock %}
-
         <!-- Footer -->
         {% block footer %}
             {% include 'footer.html' %}
@@ -51,24 +49,18 @@
 
         <!-- Django catalog -->
         <script type="text/javascript" src="{% url 'javascript-catalog' %}"></script>
+        <!-- JS inline -->
+        {{ settings.core.PortfolioSettings.google_analytics_id|json_script:'google-analytics-id' }}
         {# Compress JS #}
         {% compress js file portfolio-contrib %}
             <script src="{% static 'bootstrap/js/bootstrap.bundle.js' %}"></script>
             <script src="{% static 'fontawesome/js/all.js' %}"></script>
             <script src="{% static 'agency/js/scripts.js' %}"></script>
+            <script src="{% static 'cookies-eu-banner/cookies-eu-banner.js' %}"></script>
             <script src="{% static 'portfolio/js/contact.js' %}"></script>
+            <script src="{% static 'portfolio/js/googleanalytics.js' %}"></script>
+            <script src="{% static 'portfolio/js/cookies_banner.js' %}"></script>
         {% endcompress %}
-
-        <!-- Google Analytics -->
-        {% with ga_id=settings.core.PortfolioSettings.google_analytics_id %}
-            <script async src="https://www.googletagmanager.com/gtag/js?id={{ ga_id }}"></script>
-            <script>
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', '{{ ga_id }}');
-            </script>
-        {% endwith %}
 
         <!-- Local Business -->
         {% with psettings=settings.core.PortfolioSettings %}
@@ -76,9 +68,9 @@
                 {
                     "@context": "http://schema.org",
                     "@type": "LocalBusiness",
-                    "name": "{{ self.get_site.site_name }}",
+                    "name": "{{ current_site.site_name }}",
                     "brand": "{{ psettings.lb_brand|default:"" }}",
-                    "logo": "{% static 'agency/img/logo.png' %}",
+                    "logo": {% if settings.core.PortfolioSettings.logo %}"{% get_media_prefix %}{{ settings.core.PortfolioSettings.logo }}"{% else %}"{% static 'portfolio/assets/img/logo.png' %}"{% endif %},
                     "description": "{{ psettings.seo_description|default:"" }}",
                     "url": "{{ base_url }}",
                     {% if psettings.lb_image %}

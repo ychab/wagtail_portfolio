@@ -1,0 +1,13 @@
+{% load i18n wagtailcore_tags %}
+<div id="cookies-eu-banner" class="cookie-banner alert alert-dismissible fade show text-white text-center mb-0 fixed-bottom" role="alert" style="display: none;">
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <h5 class="alert-heading">{{ cookie_title }} <i class="fa-solid fa-cookie"></i></h5>
+    <p class="mb-0 fs-6">{{ cookie_text|safe }}</p>
+    <hr>
+    <button id="cookies-eu-reject" class="card-link btn btn-sm btn-light">
+        {% trans 'Non' %}
+    </button>
+    <button id="cookies-eu-accept" class="card-link btn btn-sm btn-primary">
+        {% trans 'Ok' %}
+    </button>
+</div>
